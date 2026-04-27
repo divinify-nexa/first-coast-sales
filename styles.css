@@ -1344,6 +1344,8 @@ section {
 
 @media (max-width: 880px) {
   .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+  .contact-grid .contact-form { order: 1; }
+  .contact-grid .contact-info { order: 2; }
 }
 
 .contact-info h2 {
