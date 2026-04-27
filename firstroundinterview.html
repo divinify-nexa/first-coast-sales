@@ -1,0 +1,1751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>First Round Interview — First Coast Sales Group</title>
+<meta name="description" content="First Round Interview — First Coast Sales Group" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+<style>
+  /* ============ INTERVIEW PAGE ============ */
+  .interview-hero {
+    position: relative;
+    background: linear-gradient(180deg, var(--navy-deep) 0%, var(--teal-deep) 100%);
+    color: var(--white);
+    padding: 200px 0 120px;
+    overflow: hidden;
+    text-align: center;
+  }
+  .interview-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 30%, rgba(192,57,43,0.18), transparent 65%),
+      radial-gradient(ellipse 80% 60% at 50% 100%, rgba(20,80,130,0.4), transparent 70%);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .interview-hero::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 56px;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--red);
+    z-index: 2;
+  }
+  .interview-hero .container { position: relative; z-index: 2; }
+
+  .live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(192,57,43,0.14);
+    border: 1px solid rgba(192,57,43,0.5);
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    border-radius: 2px;
+    margin-bottom: 32px;
+  }
+  .live-badge::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    background: var(--red);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  .interview-hero h1 {
+    font-size: clamp(56px, 9vw, 120px);
+    line-height: 0.95;
+    margin-bottom: 22px;
+    text-shadow: 0 4px 24px rgba(0,0,0,0.35);
+  }
+  .interview-hero h1 em {
+    font-style: normal;
+    color: var(--red);
+    display: block;
+  }
+  .interview-hero p {
+    color: rgba(245,240,235,0.88);
+    font-size: 19px;
+    max-width: 620px;
+    line-height: 1.65;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  /* sticky progress bar — pinned to top of viewport while user scrolls form */
+  .sticky-progress {
+    position: sticky;
+    top: 96px;
+    z-index: 40;
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,0.08);
+    border-left: 4px solid var(--red);
+    border-radius: 4px;
+    padding: 16px 22px;
+    margin-bottom: 36px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+  .sp-ring {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+  }
+  .sp-ring svg { transform: rotate(-90deg); display: block; }
+  .sp-ring .track { fill: none; stroke: rgba(0,0,0,0.08); stroke-width: 5; }
+  .sp-ring .fill {
+    fill: none;
+    stroke: var(--red);
+    stroke-width: 5;
+    stroke-linecap: round;
+    stroke-dasharray: 138.23;
+    stroke-dashoffset: 138.23;
+    transition: stroke-dashoffset 0.5s var(--ease);
+  }
+  .sp-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .sp-label {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gray);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .sp-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .sp-bar {
+    flex: 1;
+    height: 6px;
+    background: rgba(0,0,0,0.06);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .sp-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--red);
+    border-radius: 3px;
+    transition: width 0.5s var(--ease);
+  }
+  .sp-pct {
+    font-family: var(--font-display);
+    font-size: 24px;
+    color: var(--red);
+    line-height: 1;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+    min-width: 48px;
+    text-align: right;
+  }
+  @media (max-width: 540px) {
+    .sticky-progress { padding: 12px 16px; gap: 14px; }
+    .sp-ring { display: none; }
+    .sp-pct { font-size: 20px; min-width: 40px; }
+  }
+
+  /* ============ FORM ============ */
+  .interview-form-section {
+    background: var(--cream);
+    padding: 80px 0 120px;
+  }
+  .interview-form-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 56px 0 24px;
+  }
+  .section-divider:first-child { margin-top: 0; }
+  .section-divider .num {
+    background: var(--red);
+    color: var(--white);
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    padding: 5px 10px;
+    border-radius: 2px;
+  }
+  .section-divider .title {
+    font-family: var(--font-display);
+    font-size: 16px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--red);
+  }
+  .section-divider .line {
+    flex: 1;
+    height: 1px;
+    background: rgba(0,0,0,0.12);
+  }
+
+  .field-card {
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 4px;
+    padding: 28px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.25s var(--ease), transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+  }
+  .field-card:focus-within {
+    border-color: rgba(192,57,43,0.5);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .field-card.has-error { border-color: #C0392B; transform: none; }
+
+  .field-label {
+    display: block;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+  .field-label .req { color: var(--red); margin-left: 3px; }
+  .field-hint {
+    font-size: 13px;
+    color: var(--gray);
+    margin-bottom: 14px;
+    line-height: 1.55;
+  }
+
+  .field-card input[type="text"],
+  .field-card input[type="email"],
+  .field-card input[type="tel"],
+  .field-card input[type="date"],
+  .field-card textarea {
+    width: 100%;
+    background: var(--cream);
+    border: 1px solid transparent;
+    border-radius: 2px;
+    color: var(--dark);
+    font-family: var(--font-body);
+    font-size: 15px;
+    padding: 13px 15px;
+    transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+    outline: none;
+  }
+  .field-card input::placeholder,
+  .field-card textarea::placeholder { color: rgba(74,74,74,0.4); }
+  .field-card input:focus,
+  .field-card textarea:focus {
+    border-color: var(--red);
+    background: var(--white);
+  }
+  .field-card textarea {
+    resize: vertical;
+    min-height: 100px;
+    line-height: 1.65;
+  }
+  .field-card input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    filter: invert(0.3);
+  }
+
+  /* radio group */
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .radio-option {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    background: var(--cream);
+    border: 1px solid transparent;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 15px;
+    color: var(--dark);
+    transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+  }
+  .radio-option:hover { border-color: rgba(192,57,43,0.4); }
+  .radio-option input[type="radio"] { display: none; }
+  .radio-dot {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--gray);
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s var(--ease);
+  }
+  .radio-dot::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--red);
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 0.18s var(--ease);
+  }
+  .radio-option input:checked ~ .radio-dot { border-color: var(--red); }
+  .radio-option input:checked ~ .radio-dot::after { transform: scale(1); }
+  .radio-option:has(input:checked) {
+    border-color: rgba(192,57,43,0.5);
+    background: rgba(192,57,43,0.05);
+  }
+
+  /* slider */
+  .slider-display {
+    font-family: var(--font-display);
+    font-size: 56px;
+    color: var(--red);
+    line-height: 1;
+    margin-bottom: 14px;
+    letter-spacing: 0.04em;
+  }
+  .slider-display sup {
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: var(--gray);
+    font-weight: 400;
+    margin-left: 4px;
+  }
+  input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none;
+    background: transparent;
+    cursor: pointer;
+    margin: 4px 0;
+  }
+  input[type="range"]::-webkit-slider-runnable-track,
+  input[type="range"]::-moz-range-track {
+    height: 4px;
+    background: rgba(0,0,0,0.12);
+    border-radius: 2px;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    background: var(--red);
+    border-radius: 50%;
+    margin-top: -9px;
+    box-shadow: 0 0 12px rgba(192,57,43,0.5);
+    transition: transform 0.15s var(--ease);
+    border: none;
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    background: var(--red);
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0 0 12px rgba(192,57,43,0.5);
+  }
+  input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.15); }
+  .slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--gray);
+    margin-top: 10px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ==== VIDEO: choice (record OR upload) ==== */
+  .video-choice {
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+  }
+  @media (max-width: 600px) {
+    .video-choice { flex-direction: column; }
+    .vc-or { text-align: center; padding: 4px 0 !important; }
+  }
+
+  .vc-btn-record {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 22px;
+    background: rgba(192,57,43,0.08);
+    border: 1px solid rgba(192,57,43,0.45);
+    border-radius: 4px;
+    color: var(--dark);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s var(--ease), border-color 0.2s var(--ease), color 0.2s var(--ease);
+    white-space: nowrap;
+  }
+  .vc-btn-record:hover {
+    background: var(--red);
+    border-color: var(--red);
+    color: var(--white);
+  }
+  .vc-btn-record .rec-circle {
+    width: 12px;
+    height: 12px;
+    background: var(--red);
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px rgba(192,57,43,0.3);
+    transition: background 0.2s var(--ease), box-shadow 0.2s var(--ease);
+  }
+  .vc-btn-record:hover .rec-circle {
+    background: var(--white);
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.4);
+  }
+
+  .vc-or {
+    align-self: center;
+    font-size: 11px;
+    color: var(--gray);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  .vc-upload-zone {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    background: var(--cream);
+    border: 2px dashed rgba(192,57,43,0.35);
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .vc-upload-zone:hover, .vc-upload-zone.dragover {
+    background: rgba(192,57,43,0.05);
+    border-color: var(--red);
+  }
+  .vc-upload-zone .vc-up-icon {
+    color: var(--red);
+    flex-shrink: 0;
+    display: flex;
+  }
+  .vc-upload-zone .vc-up-text { line-height: 1.35; min-width: 0; }
+  .vc-upload-zone .vc-up-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--dark);
+  }
+  .vc-upload-zone .vc-up-title .browse {
+    color: var(--red);
+    text-decoration: underline;
+  }
+  .vc-upload-zone .vc-up-sub {
+    font-size: 11px;
+    color: var(--gray);
+    margin-top: 2px;
+  }
+  .vc-upload-zone input[type="file"] { display: none; }
+
+  /* ==== VIDEO: recorder (live preview + start/stop) ==== */
+  .video-recorder {
+    background: #000;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+  .rec-preview {
+    width: 100%;
+    display: block;
+    max-height: 380px;
+    background: #000;
+    object-fit: cover;
+  }
+  .rec-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    background: #161616;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .rec-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 3px;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s var(--ease), opacity 0.2s var(--ease);
+  }
+  .rec-btn:hover { opacity: 0.9; }
+  .rec-start {
+    background: var(--red);
+    color: var(--white);
+  }
+  .rec-start .rec-dot {
+    width: 10px; height: 10px;
+    background: var(--white);
+    border-radius: 50%;
+  }
+  .rec-stop {
+    background: var(--white);
+    color: var(--dark);
+  }
+  .rec-stop .rec-square {
+    width: 12px; height: 12px;
+    background: var(--red);
+    border-radius: 2px;
+  }
+  .rec-cancel {
+    background: rgba(255,255,255,0.08);
+    color: var(--cream);
+    margin-left: auto;
+  }
+  .rec-cancel:hover { background: rgba(255,255,255,0.16); }
+
+  .rec-timer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #FF6B5B;
+    font-size: 12px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+  }
+  .rec-pulse {
+    width: 9px; height: 9px;
+    background: #FF3D2E;
+    border-radius: 50%;
+    animation: recPulse 1.2s ease-in-out infinite;
+  }
+  @keyframes recPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.25; }
+  }
+
+  /* ==== VIDEO: review (playback + retake/use) ==== */
+  .video-review {
+    background: #000;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+  .rev-preview {
+    width: 100%;
+    display: block;
+    max-height: 380px;
+    background: #000;
+  }
+  .rev-bar {
+    display: flex;
+    gap: 10px;
+    padding: 12px 14px;
+    background: #161616;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .rev-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 18px;
+    border-radius: 3px;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s var(--ease);
+  }
+  .rev-retake {
+    background: rgba(255,255,255,0.1);
+    color: var(--cream);
+  }
+  .rev-retake:hover { background: rgba(255,255,255,0.18); }
+  .rev-use {
+    background: var(--red);
+    color: var(--white);
+  }
+  .rev-use:hover { background: var(--red-light); }
+
+  .video-success {
+    display: none;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    background: rgba(192,57,43,0.06);
+    border: 1px solid rgba(192,57,43,0.3);
+    border-radius: 2px;
+    margin-top: 12px;
+  }
+  .video-success.show { display: flex; }
+  .video-success .check {
+    width: 32px;
+    height: 32px;
+    background: rgba(192,57,43,0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--red);
+    flex-shrink: 0;
+  }
+  .video-success .info { flex: 1; min-width: 0; }
+  .video-success .name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .video-success .size {
+    font-size: 12px;
+    color: var(--gray);
+    margin-top: 2px;
+  }
+  .video-success .remove {
+    background: none;
+    border: none;
+    color: var(--gray);
+    cursor: pointer;
+    padding: 6px;
+    transition: color 0.2s var(--ease);
+  }
+  .video-success .remove:hover { color: var(--red); }
+
+  .video-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--gray);
+    margin-top: 12px;
+    line-height: 1.55;
+  }
+
+  .err-msg {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--red);
+    margin-top: 10px;
+    font-weight: 600;
+  }
+  .field-card.has-error .err-msg { display: flex; }
+
+  /* custom date picker */
+  .date-wrap {
+    position: relative;
+  }
+  .date-trigger {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    background: var(--cream);
+    border: 1px solid transparent;
+    border-radius: 2px;
+    color: var(--dark);
+    font-family: var(--font-body);
+    font-size: 15px;
+    padding: 13px 15px;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+  }
+  .date-trigger:hover, .date-trigger.open {
+    border-color: var(--red);
+    background: var(--white);
+  }
+  .date-trigger .cal-icon {
+    color: var(--red);
+    flex-shrink: 0;
+  }
+  .date-trigger .date-label {
+    flex: 1;
+    font-weight: 500;
+  }
+  .date-trigger .date-label.placeholder { color: rgba(74,74,74,0.4); font-weight: 400; }
+  .date-trigger .chevron {
+    color: var(--gray);
+    transition: transform 0.2s var(--ease);
+    flex-shrink: 0;
+  }
+  .date-trigger.open .chevron { transform: rotate(180deg); }
+
+  .date-popover {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    z-index: 50;
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 6px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.18);
+    padding: 22px;
+    width: min(420px, calc(100vw - 80px));
+  }
+  .date-popover.open { display: block; animation: dpFade 0.18s var(--ease); }
+  @keyframes dpFade {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .dp-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  .dp-nav-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    background: var(--cream);
+    border: none;
+    color: var(--dark);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s var(--ease), color 0.2s var(--ease);
+  }
+  .dp-nav-btn:hover { background: var(--red); color: var(--white); }
+
+  .dp-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    letter-spacing: 0.06em;
+    color: var(--dark);
+    text-transform: uppercase;
+  }
+
+  .dp-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+  .dp-weekdays span {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gray);
+    padding: 6px 0;
+  }
+
+  .dp-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+  .dp-day {
+    aspect-ratio: 1 / 1;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: var(--dark);
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s var(--ease), color 0.15s var(--ease), border-color 0.15s var(--ease);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .dp-day:hover:not(:disabled) {
+    background: rgba(192,57,43,0.08);
+    border-color: rgba(192,57,43,0.4);
+  }
+  .dp-day.other-month {
+    color: rgba(0,0,0,0.18);
+  }
+  .dp-day.today {
+    border-color: var(--red);
+    color: var(--red);
+    font-weight: 700;
+  }
+  .dp-day.selected {
+    background: var(--red);
+    color: var(--white);
+    border-color: var(--red);
+  }
+  .dp-day:disabled {
+    color: rgba(0,0,0,0.18);
+    cursor: not-allowed;
+  }
+
+  .dp-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(0,0,0,0.08);
+  }
+  .dp-clear {
+    background: none;
+    border: none;
+    color: var(--gray);
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.2s var(--ease);
+  }
+  .dp-clear:hover { color: var(--red); }
+  .dp-today-btn {
+    background: var(--cream);
+    border: none;
+    color: var(--dark);
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.2s var(--ease), color 0.2s var(--ease);
+  }
+  .dp-today-btn:hover { background: var(--red); color: var(--white); }
+
+  /* submit */
+  .submit-zone {
+    margin-top: 56px;
+    padding-top: 36px;
+    border-top: 1px solid rgba(0,0,0,0.12);
+  }
+  .submit-note {
+    font-size: 14px;
+    color: var(--gray-dark);
+    line-height: 1.7;
+    margin-bottom: 22px;
+  }
+  .submit-btn {
+    width: 100%;
+    background: var(--red);
+    color: var(--white);
+    border: none;
+    border-radius: 2px;
+    padding: 18px 32px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s var(--ease), transform 0.18s var(--ease), box-shadow 0.25s var(--ease);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    box-shadow: var(--shadow-red);
+  }
+  .submit-btn:hover {
+    background: var(--red-light);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 36px rgba(192,57,43,0.36);
+  }
+  .submit-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* success state */
+  .submission-success {
+    display: none;
+    text-align: center;
+    padding: 80px 0;
+  }
+  .submission-success.show { display: block; }
+  .submission-success .icon-ring {
+    width: 88px;
+    height: 88px;
+    background: rgba(192,57,43,0.08);
+    border: 2px solid var(--red);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--red);
+    margin: 0 auto 28px;
+  }
+  .submission-success h2 {
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .submission-success h2 em {
+    font-style: normal;
+    color: var(--red);
+    display: block;
+  }
+  .submission-success p {
+    color: var(--gray-dark);
+    font-size: 16px;
+    max-width: 480px;
+    margin: 0 auto 32px;
+    line-height: 1.7;
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="Assets/First%20Coast%20Sales%20Logo.png" alt="First Coast Sales Group" />
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links">
+      <li><a href="about.html" data-page="about.html">About</a></li>
+      <li><a href="services.html" data-page="services.html">Services</a></li>
+      <li><a href="team.html" data-page="team.html">Team</a></li>
+      <li><a href="contact.html" data-page="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="interview-hero">
+  <div class="container">
+    <span class="live-badge">First Round Interview</span>
+    <h1>Show Us<em>Who You Are.</em></h1>
+    <p>Beyond the resume. FCSG is built on real people — tell us what drives you, how you think, and why you belong on the First Coast.</p>
+  </div>
+</header>
+
+<!-- ============ FORM ============ -->
+<section class="interview-form-section">
+  <div class="container">
+    <div class="interview-form-wrap">
+
+      <!-- sticky progress -->
+      <div class="sticky-progress" id="stickyProgress">
+        <div class="sp-ring">
+          <svg width="56" height="56" viewBox="0 0 56 56">
+            <circle class="track" cx="28" cy="28" r="22"/>
+            <circle class="fill" id="ringFill" cx="28" cy="28" r="22"/>
+          </svg>
+        </div>
+        <div class="sp-info">
+          <span class="sp-label">Application Progress</span>
+          <div class="sp-bar-wrap">
+            <div class="sp-bar"><div class="sp-fill" id="ringBar"></div></div>
+            <span class="sp-pct" id="ringPct">0%</span>
+          </div>
+        </div>
+      </div>
+
+      <form id="interviewForm" novalidate>
+
+        <!-- ===== 01. ABOUT YOU ===== -->
+        <div class="section-divider">
+          <span class="num">01</span>
+          <span class="title">About You</span>
+          <span class="line"></span>
+        </div>
+
+        <div class="field-card" data-field="name">
+          <label class="field-label" for="name">First and Last Name <span class="req">*</span></label>
+          <input type="text" id="name" name="name" placeholder="e.g. Jordan Smith" autocomplete="name" required />
+          <div class="err-msg">Required.</div>
+        </div>
+
+        <div class="field-card" data-field="phone">
+          <label class="field-label" for="phone">Phone Number <span class="req">*</span></label>
+          <input type="tel" id="phone" name="phone" placeholder="e.g. (904) 555-0123" autocomplete="tel" required />
+          <div class="err-msg">Required.</div>
+        </div>
+
+        <div class="field-card" data-field="email">
+          <label class="field-label" for="email">Email Address <span class="req">*</span></label>
+          <input type="email" id="email" name="email" placeholder="e.g. jordan@email.com" autocomplete="email" required />
+          <div class="err-msg">Required.</div>
+        </div>
+
+        <div class="field-card" data-field="about">
+          <label class="field-label" for="about">At First Coast Sales Group, the "T" in our F.I.R.S.T. values stands for TEAM — and that means family. Tell us a little about yourself beyond your resume. <span class="req">*</span></label>
+          <p class="field-hint">Hobbies, sports, what you do for fun, favorite shows — anything that makes you <em>you</em>.</p>
+          <textarea id="about" name="about" placeholder="Tell us about yourself..." rows="4" required></textarea>
+          <div class="err-msg">Required.</div>
+        </div>
+
+        <!-- ===== 02. YOUR DRIVE ===== -->
+        <div class="section-divider">
+          <span class="num">02</span>
+          <span class="title">Your Drive</span>
+          <span class="line"></span>
+        </div>
+
+        <div class="field-card" data-field="team_activity">
+          <label class="field-label" for="team_activity">If you've checked out our Instagram <a href="https://www.instagram.com/firstcoastsales/" target="_blank" rel="noopener" style="color:var(--red);">@firstcoastsales</a>, you've noticed we love doing things outside the office together. If offered the position, what would excite you to do with the team? <span class="req">*</span></label>
+          <textarea id="team_activity" name="team_activity" placeholder="e.g. team dinners, beach days, sporting events, competitions..." rows="3" required></textarea>
+          <div class="err-msg">Required.</div>
+        </div>
+
+        <div class="field-card" data-field="high_achiever">
+          <label class="field-label" for="high_achiever">We are a group of high achievers. Give us an example of a time you were a high achiever somewhere in your life. <span class="req">*</span></label>
+          <textarea id="high_achiever" name="high_achiever" placeholder="Be specific — context, actions, and outcomes matter." rows="4" required></textarea>
+          <div class="err-msg">Required.</div>
+        </div>
+
+        <div class="field-card" data-field="self_dev">
+          <label class="field-label" for="self_dev">We strongly encourage self-development. If offered a position with us, what's one thing you would want to work on about yourself? <span class="req">*</span></label>
+          <textarea id="self_dev" name="self_dev" placeholder="Honesty here is a strength, not a weakness." rows="3" required></textarea>
+          <div class="err-msg">Required.</div>
+        </div>
+
+        <!-- ===== 03. VIDEO RESPONSES ===== -->
+        <div class="section-divider">
+          <span class="num">03</span>
+          <span class="title">Video Responses</span>
+          <span class="line"></span>
+        </div>
+
+        <div class="field-card" data-field="video1">
+          <label class="field-label">What attracted you to First Coast Sales Group? Why do you think you'd excel in a face-to-face sales role? <span class="req">*</span></label>
+          <p class="field-hint">Record directly in your browser or upload a file. Keep it 60–90 seconds.</p>
+
+          <!-- Choice: Record or Upload -->
+          <div class="video-choice" id="choice1">
+            <button type="button" class="vc-btn-record" onclick="startCamera('1')">
+              <span class="rec-circle"></span>
+              Record Video
+            </button>
+            <span class="vc-or">or</span>
+            <label class="vc-upload-zone" id="zone1" for="file1">
+              <span class="vc-up-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14V4M12 4l-4 4m4-4l4 4"/><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+              </span>
+              <span class="vc-up-text">
+                <span class="vc-up-title">Drag &amp; drop or <span class="browse">browse files</span></span>
+                <span class="vc-up-sub">MP4, MOV, WebM · Max 500MB</span>
+              </span>
+              <input type="file" id="file1" accept="video/*" />
+            </label>
+          </div>
+
+          <!-- Live Recorder -->
+          <div class="video-recorder" id="recorder1" style="display: none;">
+            <video class="rec-preview" id="preview1" autoplay muted playsinline></video>
+            <div class="rec-bar">
+              <button type="button" class="rec-btn rec-start" id="recStart1" onclick="beginRecording('1')">
+                <span class="rec-dot"></span>
+                Start Recording
+              </button>
+              <button type="button" class="rec-btn rec-stop" id="recStop1" onclick="stopRecording('1')" style="display: none;">
+                <span class="rec-square"></span>
+                Stop
+              </button>
+              <div class="rec-timer" id="recTimer1" style="display: none;">
+                <span class="rec-pulse"></span>
+                <span id="recTime1">0:00</span>
+              </div>
+              <button type="button" class="rec-btn rec-cancel" onclick="cancelRecording('1')">Cancel</button>
+            </div>
+          </div>
+
+          <!-- Review (after recording) -->
+          <div class="video-review" id="review1" style="display: none;">
+            <video class="rev-preview" id="reviewPlayback1" controls playsinline></video>
+            <div class="rev-bar">
+              <button type="button" class="rev-btn rev-retake" onclick="retakeVideo('1')">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7a5 5 0 0110 0M2 7l-1.5-1.5M2 7l1.5-1.5"/><path d="M12 7a5 5 0 01-10 0M12 7l1.5 1.5M12 7l-1.5 1.5"/></svg>
+                Retake
+              </button>
+              <button type="button" class="rev-btn rev-use" onclick="useRecordedVideo('1')">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l3 3 5-6"/></svg>
+                Use This Video
+              </button>
+            </div>
+          </div>
+
+          <!-- Saved success -->
+          <div class="video-success" id="success1">
+            <div class="check">
+              <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l4 4 6-7"/></svg>
+            </div>
+            <div class="info">
+              <div class="name" id="fname1">video.mp4</div>
+              <div class="size" id="fsize1"></div>
+            </div>
+            <button type="button" class="remove" onclick="removeVideo('1')" aria-label="Remove">
+              <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+            </button>
+          </div>
+
+          <div class="err-msg">Please record or upload your video response.</div>
+        </div>
+
+        <div class="field-card" data-field="video2">
+          <label class="field-label">At First Coast Sales Group we only bring on motivated individuals. What is your motivation? Why would you out-work every other candidate? <span class="req">*</span></label>
+          <p class="field-hint">Record directly in your browser or upload a file. Keep it 60–90 seconds.</p>
+
+          <div class="video-choice" id="choice2">
+            <button type="button" class="vc-btn-record" onclick="startCamera('2')">
+              <span class="rec-circle"></span>
+              Record Video
+            </button>
+            <span class="vc-or">or</span>
+            <label class="vc-upload-zone" id="zone2" for="file2">
+              <span class="vc-up-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14V4M12 4l-4 4m4-4l4 4"/><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+              </span>
+              <span class="vc-up-text">
+                <span class="vc-up-title">Drag &amp; drop or <span class="browse">browse files</span></span>
+                <span class="vc-up-sub">MP4, MOV, WebM · Max 500MB</span>
+              </span>
+              <input type="file" id="file2" accept="video/*" />
+            </label>
+          </div>
+
+          <div class="video-recorder" id="recorder2" style="display: none;">
+            <video class="rec-preview" id="preview2" autoplay muted playsinline></video>
+            <div class="rec-bar">
+              <button type="button" class="rec-btn rec-start" id="recStart2" onclick="beginRecording('2')">
+                <span class="rec-dot"></span>
+                Start Recording
+              </button>
+              <button type="button" class="rec-btn rec-stop" id="recStop2" onclick="stopRecording('2')" style="display: none;">
+                <span class="rec-square"></span>
+                Stop
+              </button>
+              <div class="rec-timer" id="recTimer2" style="display: none;">
+                <span class="rec-pulse"></span>
+                <span id="recTime2">0:00</span>
+              </div>
+              <button type="button" class="rec-btn rec-cancel" onclick="cancelRecording('2')">Cancel</button>
+            </div>
+          </div>
+
+          <div class="video-review" id="review2" style="display: none;">
+            <video class="rev-preview" id="reviewPlayback2" controls playsinline></video>
+            <div class="rev-bar">
+              <button type="button" class="rev-btn rev-retake" onclick="retakeVideo('2')">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7a5 5 0 0110 0M2 7l-1.5-1.5M2 7l1.5-1.5"/><path d="M12 7a5 5 0 01-10 0M12 7l1.5 1.5M12 7l-1.5 1.5"/></svg>
+                Retake
+              </button>
+              <button type="button" class="rev-btn rev-use" onclick="useRecordedVideo('2')">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l3 3 5-6"/></svg>
+                Use This Video
+              </button>
+            </div>
+          </div>
+
+          <div class="video-success" id="success2">
+            <div class="check">
+              <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l4 4 6-7"/></svg>
+            </div>
+            <div class="info">
+              <div class="name" id="fname2">video.mp4</div>
+              <div class="size" id="fsize2"></div>
+            </div>
+            <button type="button" class="remove" onclick="removeVideo('2')" aria-label="Remove">
+              <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+            </button>
+          </div>
+
+          <div class="err-msg">Please record or upload your video response.</div>
+        </div>
+
+        <!-- ===== 04. VALUES & PRIORITIES ===== -->
+        <div class="section-divider">
+          <span class="num">04</span>
+          <span class="title">Values &amp; Priorities</span>
+          <span class="line"></span>
+        </div>
+
+        <div class="field-card" data-field="ranking">
+          <label class="field-label" for="ranking">In a company, from most to least important, how would you rank: <strong>Growth, Culture, Compensation</strong> — and why? <span class="req">*</span></label>
+          <textarea id="ranking" name="ranking" placeholder="1. [Attribute] — because...
+2. [Attribute] — because...
+3. [Attribute] — because..." rows="5" required></textarea>
+          <div class="err-msg">Required.</div>
+        </div>
+
+        <!-- ===== 05. SELF-ASSESSMENT ===== -->
+        <div class="section-divider">
+          <span class="num">05</span>
+          <span class="title">Self-Assessment</span>
+          <span class="line"></span>
+        </div>
+
+        <div class="field-card" data-field="competitive">
+          <label class="field-label">On a scale of 1–10, how competitive are you? <span style="color: var(--gray); font-weight: 400;">(Honesty is the best policy)</span> <span class="req">*</span></label>
+          <div class="slider-display" id="sliderDisplay">5<sup>/ 10</sup></div>
+          <input type="range" id="competitive" name="competitive" min="1" max="10" value="5" />
+          <div class="slider-labels"><span>1 — Not competitive</span><span>10 — Extremely competitive</span></div>
+        </div>
+
+        <!-- ===== 06. LOGISTICS ===== -->
+        <div class="section-divider">
+          <span class="num">06</span>
+          <span class="title">Logistics</span>
+          <span class="line"></span>
+        </div>
+
+        <div class="field-card" data-field="transportation">
+          <label class="field-label">Do you have reliable transportation to and from work? <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="transportation" value="Yes — personal car" required /><span class="radio-dot"></span>Yes — personal car</label>
+            <label class="radio-option"><input type="radio" name="transportation" value="Yes — public transportation" /><span class="radio-dot"></span>Yes — public transportation</label>
+            <label class="radio-option"><input type="radio" name="transportation" value="No, not at this time" /><span class="radio-dot"></span>No, not at this time</label>
+          </div>
+          <div class="err-msg" style="margin-top: 12px;">Please select an option.</div>
+        </div>
+
+        <div class="field-card" data-field="start_date">
+          <label class="field-label">If offered a position, when would be your next available start date? <span class="req">*</span></label>
+          <div class="date-wrap">
+            <button type="button" class="date-trigger" id="dateTrigger" aria-haspopup="dialog">
+              <span class="cal-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg>
+              </span>
+              <span class="date-label placeholder" id="dateLabel">Select a date</span>
+              <span class="chevron">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>
+              </span>
+            </button>
+            <input type="hidden" id="start_date" name="start_date" required />
+
+            <div class="date-popover" id="datePopover" role="dialog" aria-label="Select start date">
+              <div class="dp-header">
+                <button type="button" class="dp-nav-btn" id="dpPrev" aria-label="Previous month">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4l-5 5 5 5"/></svg>
+                </button>
+                <div class="dp-title" id="dpTitle">Month YYYY</div>
+                <button type="button" class="dp-nav-btn" id="dpNext" aria-label="Next month">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4l5 5-5 5"/></svg>
+                </button>
+              </div>
+              <div class="dp-weekdays">
+                <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+              </div>
+              <div class="dp-grid" id="dpGrid"></div>
+              <div class="dp-footer">
+                <button type="button" class="dp-clear" id="dpClear">Clear</button>
+                <button type="button" class="dp-today-btn" id="dpToday">Today</button>
+              </div>
+            </div>
+          </div>
+          <div class="err-msg">Please provide a date.</div>
+        </div>
+
+        <!-- ===== SUBMIT ===== -->
+        <div class="submit-zone">
+          <p class="submit-note">Your responses will be reviewed by the FCSG leadership team. Qualified candidates will be contacted within 2–3 business days.</p>
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <span>Submit Application</span>
+            <span class="arrow">→</span>
+          </button>
+        </div>
+
+      </form>
+
+      <!-- ===== SUCCESS ===== -->
+      <div class="submission-success" id="submissionSuccess">
+        <div class="icon-ring">
+          <svg viewBox="0 0 36 36" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 19l8 8L29 10"/></svg>
+        </div>
+        <h2>Application<em>Received.</em></h2>
+        <p>Thank you for your time. The FCSG team reviews every submission personally — we'll be in touch with qualified candidates within 2–3 business days.</p>
+        <a href="index.html" class="btn btn-outline-dark">← Back to FCSG</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img class="footer-logo" src="Assets/First%20Coast%20Sales%20Logo.png" alt="First Coast Sales Group" />
+        <p class="tagline">Where Ambition Meets the Coast. A privately owned direct sales firm based in Jacksonville, Florida.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Explore</h5>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="team.html">Team</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <p>(904) 222-0841</p>
+        <p>contact@firstcoastsalesgroup.com</p>
+        <p>9000 Cypress Green Drive<br/>Jacksonville, FL</p>
+      </div>
+      <div class="footer-col">
+        <h5>Hours</h5>
+        <p>Open daily<br/>11am – 7pm</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/firstcoastsales/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 First Coast Sales Group. All rights reserved.</span>
+      <span>Where Ambition Meets the Coast.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+<script>
+  // ===== Progress Ring + Bar =====
+  const FIELDS = ['name','phone','email','about','team_activity','high_achiever','self_dev','video1','video2','ranking','competitive','transportation','start_date'];
+  const CIRC = 2 * Math.PI * 22; // small sticky ring radius
+  const ringFill = document.getElementById('ringFill');
+  const ringPct = document.getElementById('ringPct');
+  const ringBar = document.getElementById('ringBar');
+  ringFill.style.strokeDasharray = CIRC;
+  ringFill.style.strokeDashoffset = CIRC;
+
+  const videoFiles = { '1': null, '2': null };
+  let competitiveTouched = false;
+
+  function getVal(id) {
+    if (id === 'transportation') return document.querySelector('input[name="transportation"]:checked') ? '1' : '';
+    if (id === 'video1') return videoFiles['1'] ? '1' : '';
+    if (id === 'video2') return videoFiles['2'] ? '1' : '';
+    if (id === 'competitive') return competitiveTouched ? '1' : '';
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : '';
+  }
+
+  function updateProgress() {
+    const filled = FIELDS.filter(id => getVal(id) !== '').length;
+    const pct = Math.round((filled / FIELDS.length) * 100);
+    ringPct.textContent = pct + '%';
+    ringFill.style.strokeDashoffset = CIRC - (pct / 100) * CIRC;
+    ringBar.style.width = pct + '%';
+  }
+
+  ['name','phone','email','about','team_activity','high_achiever','self_dev','ranking']
+    .forEach(id => document.getElementById(id).addEventListener('input', updateProgress));
+  document.querySelectorAll('input[name="transportation"]').forEach(r => r.addEventListener('change', updateProgress));
+
+  // ===== Slider =====
+  const slider = document.getElementById('competitive');
+  const sliderDisplay = document.getElementById('sliderDisplay');
+  slider.addEventListener('input', () => {
+    sliderDisplay.innerHTML = slider.value + '<sup>/ 10</sup>';
+    competitiveTouched = true;
+    updateProgress();
+  });
+
+  // ===== Video upload =====
+  function formatBytes(bytes) {
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  }
+
+  // ===== In-browser camera recording state =====
+  const recorderState = {};
+
+  function getSupportedMimeType() {
+    if (!window.MediaRecorder) return null;
+    const types = [
+      'video/webm;codecs=vp9,opus',
+      'video/webm;codecs=vp8,opus',
+      'video/webm',
+      'video/mp4'
+    ];
+    for (const t of types) {
+      if (MediaRecorder.isTypeSupported(t)) return t;
+    }
+    return 'video/webm';
+  }
+
+  async function startCamera(num) {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder) {
+      alert('Your browser does not support in-browser recording. Please upload a file instead.');
+      return;
+    }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      recorderState[num] = { stream, mediaRecorder: null, chunks: [], blob: null, blobUrl: null, fileName: null, timer: null, seconds: 0 };
+      document.getElementById('choice' + num).style.display = 'none';
+      document.getElementById('recorder' + num).style.display = 'block';
+      const preview = document.getElementById('preview' + num);
+      preview.srcObject = stream;
+      preview.muted = true; // prevent audio feedback
+    } catch (err) {
+      alert('Could not access your camera or microphone. Please grant permission and try again, or use the upload option instead.');
+    }
+  }
+
+  function beginRecording(num) {
+    const state = recorderState[num];
+    if (!state || !state.stream) return;
+    const mimeType = getSupportedMimeType();
+    state.mediaRecorder = new MediaRecorder(state.stream, mimeType ? { mimeType } : undefined);
+    state.chunks = [];
+    state.mediaRecorder.ondataavailable = e => { if (e.data && e.data.size > 0) state.chunks.push(e.data); };
+    state.mediaRecorder.onstop = () => finalizeRecording(num);
+    state.mediaRecorder.start(200);
+
+    document.getElementById('recStart' + num).style.display = 'none';
+    document.getElementById('recStop' + num).style.display = 'flex';
+    const timerEl = document.getElementById('recTimer' + num);
+    timerEl.style.display = 'flex';
+    state.seconds = 0;
+    document.getElementById('recTime' + num).textContent = '0:00';
+    state.timer = setInterval(() => {
+      state.seconds++;
+      const m = Math.floor(state.seconds / 60);
+      const s = state.seconds % 60;
+      document.getElementById('recTime' + num).textContent = m + ':' + String(s).padStart(2, '0');
+    }, 1000);
+  }
+
+  function stopRecording(num) {
+    const state = recorderState[num];
+    if (!state) return;
+    if (state.timer) { clearInterval(state.timer); state.timer = null; }
+    if (state.mediaRecorder && state.mediaRecorder.state !== 'inactive') {
+      state.mediaRecorder.stop();
+    }
+  }
+
+  function finalizeRecording(num) {
+    const state = recorderState[num];
+    if (!state) return;
+    const mimeType = (state.mediaRecorder && state.mediaRecorder.mimeType) || 'video/webm';
+    const ext = mimeType.includes('mp4') ? 'mp4' : 'webm';
+    state.blob = new Blob(state.chunks, { type: mimeType });
+    state.blobUrl = URL.createObjectURL(state.blob);
+    state.fileName = 'recording-' + num + '-' + Date.now() + '.' + ext;
+
+    // stop the camera so the indicator turns off
+    if (state.stream) {
+      state.stream.getTracks().forEach(t => t.stop());
+      state.stream = null;
+    }
+
+    // reset recorder UI
+    document.getElementById('recorder' + num).style.display = 'none';
+    document.getElementById('recStart' + num).style.display = 'flex';
+    document.getElementById('recStop' + num).style.display = 'none';
+    document.getElementById('recTimer' + num).style.display = 'none';
+    document.getElementById('recTime' + num).textContent = '0:00';
+
+    // show review with playback
+    const review = document.getElementById('review' + num);
+    const playback = document.getElementById('reviewPlayback' + num);
+    playback.src = state.blobUrl;
+    playback.muted = false;
+    review.style.display = 'block';
+  }
+
+  function retakeVideo(num) {
+    const state = recorderState[num];
+    if (state) {
+      if (state.blobUrl) URL.revokeObjectURL(state.blobUrl);
+      state.blob = null;
+      state.blobUrl = null;
+      state.chunks = [];
+    }
+    document.getElementById('review' + num).style.display = 'none';
+    const playback = document.getElementById('reviewPlayback' + num);
+    playback.pause();
+    playback.removeAttribute('src');
+    playback.load();
+    // restart camera + recorder UI
+    startCamera(num);
+  }
+
+  function useRecordedVideo(num) {
+    const state = recorderState[num];
+    if (!state || !state.blob) return;
+    const file = new File([state.blob], state.fileName, { type: state.blob.type });
+    document.getElementById('review' + num).style.display = 'none';
+    const playback = document.getElementById('reviewPlayback' + num);
+    playback.pause();
+    playback.removeAttribute('src');
+    playback.load();
+    if (state.blobUrl) URL.revokeObjectURL(state.blobUrl);
+    recorderState[num] = null;
+    handleVideoUpload(num, file);
+  }
+
+  function cancelRecording(num) {
+    const state = recorderState[num];
+    if (state) {
+      if (state.timer) clearInterval(state.timer);
+      if (state.mediaRecorder && state.mediaRecorder.state !== 'inactive') {
+        state.mediaRecorder.onstop = null;
+        try { state.mediaRecorder.stop(); } catch (e) {}
+      }
+      if (state.stream) state.stream.getTracks().forEach(t => t.stop());
+      if (state.blobUrl) URL.revokeObjectURL(state.blobUrl);
+      recorderState[num] = null;
+    }
+    document.getElementById('recorder' + num).style.display = 'none';
+    document.getElementById('review' + num).style.display = 'none';
+    document.getElementById('choice' + num).style.display = 'flex';
+    document.getElementById('recStart' + num).style.display = 'flex';
+    document.getElementById('recStop' + num).style.display = 'none';
+    document.getElementById('recTimer' + num).style.display = 'none';
+    document.getElementById('recTime' + num).textContent = '0:00';
+    const preview = document.getElementById('preview' + num);
+    if (preview) preview.srcObject = null;
+  }
+
+  // ===== Upload (file picker / drag-drop) =====
+  function handleVideoUpload(num, file) {
+    if (!file) return;
+    if (!file.type.startsWith('video/')) { alert('Please select a video file.'); return; }
+    if (file.size > 500 * 1024 * 1024) { alert('File is too large. Maximum 500MB.'); return; }
+    videoFiles[num] = file;
+    document.getElementById('fname' + num).textContent = file.name;
+    document.getElementById('fsize' + num).textContent = formatBytes(file.size);
+    document.getElementById('success' + num).classList.add('show');
+    document.getElementById('choice' + num).style.display = 'none';
+    document.getElementById('recorder' + num).style.display = 'none';
+    document.getElementById('review' + num).style.display = 'none';
+    document.querySelector('[data-field="video' + num + '"]').classList.remove('has-error');
+    updateProgress();
+  }
+
+  function removeVideo(num) {
+    videoFiles[num] = null;
+    document.getElementById('file' + num).value = '';
+    document.getElementById('success' + num).classList.remove('show');
+    document.getElementById('recorder' + num).style.display = 'none';
+    document.getElementById('review' + num).style.display = 'none';
+    document.getElementById('choice' + num).style.display = 'flex';
+    // cleanup any lingering recorder state
+    const state = recorderState[num];
+    if (state) {
+      if (state.timer) clearInterval(state.timer);
+      if (state.mediaRecorder && state.mediaRecorder.state !== 'inactive') {
+        state.mediaRecorder.onstop = null;
+        try { state.mediaRecorder.stop(); } catch (e) {}
+      }
+      if (state.stream) state.stream.getTracks().forEach(t => t.stop());
+      if (state.blobUrl) URL.revokeObjectURL(state.blobUrl);
+      recorderState[num] = null;
+    }
+    updateProgress();
+  }
+
+  ['1', '2'].forEach(num => {
+    const input = document.getElementById('file' + num);
+    const zone = document.getElementById('zone' + num);
+    input.addEventListener('change', e => handleVideoUpload(num, e.target.files[0]));
+    zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
+    zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+    zone.addEventListener('drop', e => {
+      e.preventDefault();
+      zone.classList.remove('dragover');
+      if (e.dataTransfer.files[0]) handleVideoUpload(num, e.dataTransfer.files[0]);
+    });
+  });
+
+  // ===== Custom Date Picker =====
+  const dateTrigger = document.getElementById('dateTrigger');
+  const datePopover = document.getElementById('datePopover');
+  const dateLabel = document.getElementById('dateLabel');
+  const startDateInput = document.getElementById('start_date');
+  const dpTitle = document.getElementById('dpTitle');
+  const dpGrid = document.getElementById('dpGrid');
+  const dpPrev = document.getElementById('dpPrev');
+  const dpNext = document.getElementById('dpNext');
+  const dpToday = document.getElementById('dpToday');
+  const dpClear = document.getElementById('dpClear');
+  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+  let dpView = new Date(); dpView.setDate(1);
+  let dpSelected = null;
+
+  function pad2(n) { return String(n).padStart(2, '0'); }
+  function fmtDateISO(d) { return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()); }
+  function fmtDateLong(d) {
+    return d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+  }
+  function sameDay(a, b) {
+    return a && b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+  }
+
+  function renderCalendar() {
+    dpTitle.textContent = MONTHS[dpView.getMonth()] + ' ' + dpView.getFullYear();
+    dpGrid.innerHTML = '';
+    const firstDay = new Date(dpView.getFullYear(), dpView.getMonth(), 1);
+    const lastDay = new Date(dpView.getFullYear(), dpView.getMonth() + 1, 0);
+    const startOffset = firstDay.getDay();
+    const totalCells = Math.ceil((startOffset + lastDay.getDate()) / 7) * 7;
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    for (let i = 0; i < totalCells; i++) {
+      const dayNum = i - startOffset + 1;
+      const cellDate = new Date(dpView.getFullYear(), dpView.getMonth(), dayNum);
+      cellDate.setHours(0,0,0,0);
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'dp-day';
+      btn.textContent = cellDate.getDate();
+
+      if (cellDate.getMonth() !== dpView.getMonth()) btn.classList.add('other-month');
+      if (sameDay(cellDate, today)) btn.classList.add('today');
+      if (sameDay(cellDate, dpSelected)) btn.classList.add('selected');
+
+      btn.addEventListener('click', () => selectDate(cellDate));
+      dpGrid.appendChild(btn);
+    }
+  }
+
+  function openPicker() {
+    if (dpSelected) { dpView = new Date(dpSelected); dpView.setDate(1); }
+    renderCalendar();
+    datePopover.classList.add('open');
+    dateTrigger.classList.add('open');
+  }
+  function closePicker() {
+    datePopover.classList.remove('open');
+    dateTrigger.classList.remove('open');
+  }
+  function selectDate(d) {
+    dpSelected = d;
+    startDateInput.value = fmtDateISO(d);
+    dateLabel.textContent = fmtDateLong(d);
+    dateLabel.classList.remove('placeholder');
+    document.querySelector('[data-field="start_date"]').classList.remove('has-error');
+    closePicker();
+    updateProgress();
+  }
+
+  dateTrigger.addEventListener('click', () => {
+    if (datePopover.classList.contains('open')) closePicker();
+    else openPicker();
+  });
+  dpPrev.addEventListener('click', () => {
+    dpView = new Date(dpView.getFullYear(), dpView.getMonth() - 1, 1);
+    renderCalendar();
+  });
+  dpNext.addEventListener('click', () => {
+    dpView = new Date(dpView.getFullYear(), dpView.getMonth() + 1, 1);
+    renderCalendar();
+  });
+  dpToday.addEventListener('click', () => {
+    const t = new Date(); t.setHours(0,0,0,0);
+    selectDate(t);
+  });
+  dpClear.addEventListener('click', () => {
+    dpSelected = null;
+    startDateInput.value = '';
+    dateLabel.textContent = 'Select a date';
+    dateLabel.classList.add('placeholder');
+    closePicker();
+    updateProgress();
+  });
+  document.addEventListener('click', (e) => {
+    if (!datePopover.contains(e.target) && !dateTrigger.contains(e.target)) closePicker();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && datePopover.classList.contains('open')) closePicker();
+  });
+
+  // ===== Validation + Submit =====
+  function validate() {
+    let ok = true;
+    ['name','phone','email','about','team_activity','high_achiever','self_dev','ranking','start_date'].forEach(id => {
+      const el = document.getElementById(id);
+      const card = document.querySelector('[data-field="' + id + '"]');
+      const empty = !el.value.trim();
+      card.classList.toggle('has-error', empty);
+      if (empty) ok = false;
+    });
+    ['1','2'].forEach(num => {
+      const card = document.querySelector('[data-field="video' + num + '"]');
+      const empty = !videoFiles[num];
+      card.classList.toggle('has-error', empty);
+      if (empty) ok = false;
+    });
+    const transOk = !!document.querySelector('input[name="transportation"]:checked');
+    document.querySelector('[data-field="transportation"]').classList.toggle('has-error', !transOk);
+    if (!transOk) ok = false;
+    return ok;
+  }
+
+  document.querySelectorAll('.field-card input, .field-card textarea').forEach(el => {
+    el.addEventListener('input', () => el.closest('.field-card').classList.remove('has-error'));
+  });
+
+  document.getElementById('interviewForm').addEventListener('submit', e => {
+    e.preventDefault();
+    if (!validate()) {
+      const firstErr = document.querySelector('.field-card.has-error');
+      if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    // Mock success — no backend
+    document.getElementById('interviewForm').style.display = 'none';
+    document.getElementById('submissionSuccess').classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  updateProgress();
+</script>
+</body>
+</html>
