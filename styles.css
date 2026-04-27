@@ -436,7 +436,7 @@ p { font-size: 1.0625rem; }
   position: relative;
   background: linear-gradient(180deg, var(--navy-deep) 0%, var(--teal-deep) 100%);
   color: var(--white);
-  padding: 200px 0 110px;
+  padding: clamp(140px, 16vw, 170px) 0 clamp(60px, 7vw, 80px);
   overflow: hidden;
   text-align: center;
 }
@@ -456,7 +456,7 @@ p { font-size: 1.0625rem; }
   content: '';
   position: absolute;
   left: 50%;
-  bottom: 64px;
+  bottom: 32px;
   transform: translateX(-50%);
   width: 64px;
   height: 4px;
@@ -1333,6 +1333,7 @@ section {
 
 .contact-section {
   background: var(--cream);
+  padding-top: clamp(40px, 6vw, 70px);
 }
 
 .contact-grid {
