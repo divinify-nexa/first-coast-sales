@@ -3,9 +3,9 @@
    ============================================ */
 
 :root {
-  --red: #C0392B;
-  --red-dark: #A0301F;
-  --red-light: #D14B3D;
+  --red: #bf3824;
+  --red-dark: #bf3824;
+  --red-light: #bf3824;
   --dark: #1A1A1A;
   --dark-2: #232323;
   --cream: #F5F0EB;
@@ -26,7 +26,7 @@
   --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
   --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
   --shadow-lg: 0 16px 48px rgba(0,0,0,0.14);
-  --shadow-red: 0 12px 32px rgba(192,57,43,0.28);
+  --shadow-red: 0 12px 32px rgba(191,56,36,0.28);
 
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -274,7 +274,7 @@ p { font-size: 1.0625rem; }
 .btn-red:hover {
   background: var(--red-light);
   transform: translateY(-3px);
-  box-shadow: 0 16px 36px rgba(192,57,43,0.36);
+  box-shadow: 0 16px 36px rgba(191,56,36,0.36);
 }
 
 .btn-outline {
@@ -446,7 +446,7 @@ p { font-size: 1.0625rem; }
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 80% 60% at 75% 25%, rgba(192,57,43,0.16), transparent 60%),
+    radial-gradient(ellipse 80% 60% at 75% 25%, rgba(191,56,36,0.16), transparent 60%),
     radial-gradient(ellipse 70% 50% at 15% 85%, rgba(20,80,130,0.45), transparent 60%);
   z-index: 1;
   pointer-events: none;
@@ -612,7 +612,7 @@ section {
 
 .value-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(192,57,43,0.4);
+  border-color: rgba(191,56,36,0.4);
   background: #2A2A2A;
 }
 
@@ -1033,7 +1033,7 @@ section {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 30% 30%, rgba(192,57,43,0.18), transparent 60%);
+  background: radial-gradient(circle at 30% 30%, rgba(191,56,36,0.18), transparent 60%);
 }
 
 .profile-img .initials {
@@ -1251,7 +1251,7 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(192,57,43,0.08);
+  background: rgba(191,56,36,0.08);
   border-radius: 50%;
   color: var(--red);
   margin-bottom: 24px;

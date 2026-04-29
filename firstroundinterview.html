@@ -21,7 +21,7 @@
 <meta name="twitter:description" content="Show us who you are. Beyond the resume." />
 <meta name="twitter:image" content="https://first-coast-sales.vercel.app/Assets/og-image.png?v=2" />
 <meta name="twitter:image:alt" content="First Coast Sales Group" />
-<meta name="theme-color" content="#C0392B" />
+<meta name="theme-color" content="#bf3824" />
 <link rel="icon" type="image/png" href="Assets/og-image.png" />
 <link rel="apple-touch-icon" href="https://first-coast-sales.vercel.app/Assets/og-image.png?v=2" />
 <link rel="canonical" href="https://first-coast-sales.vercel.app/firstroundinterview.html" />
@@ -44,7 +44,7 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 60% 50% at 50% 30%, rgba(192,57,43,0.18), transparent 65%),
+      radial-gradient(ellipse 60% 50% at 50% 30%, rgba(191,56,36,0.18), transparent 65%),
       radial-gradient(ellipse 80% 60% at 50% 100%, rgba(20,80,130,0.4), transparent 70%);
     z-index: 1;
     pointer-events: none;
@@ -66,8 +66,8 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: rgba(192,57,43,0.14);
-    border: 1px solid rgba(192,57,43,0.5);
+    background: rgba(191,56,36,0.14);
+    border: 1px solid rgba(191,56,36,0.5);
     color: var(--white);
     font-size: 12px;
     font-weight: 700;
@@ -240,11 +240,11 @@
     transition: border-color 0.25s var(--ease), transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
   }
   .field-card:focus-within {
-    border-color: rgba(192,57,43,0.5);
+    border-color: rgba(191,56,36,0.5);
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
   }
-  .field-card.has-error { border-color: #C0392B; transform: none; }
+  .field-card.has-error { border-color: #bf3824; transform: none; }
 
   .field-label {
     display: block;
@@ -314,7 +314,7 @@
     color: var(--dark);
     transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
   }
-  .radio-option:hover { border-color: rgba(192,57,43,0.4); }
+  .radio-option:hover { border-color: rgba(191,56,36,0.4); }
   .radio-option input[type="radio"] { display: none; }
   .radio-dot {
     width: 18px;
@@ -339,8 +339,8 @@
   .radio-option input:checked ~ .radio-dot { border-color: var(--red); }
   .radio-option input:checked ~ .radio-dot::after { transform: scale(1); }
   .radio-option:has(input:checked) {
-    border-color: rgba(192,57,43,0.5);
-    background: rgba(192,57,43,0.05);
+    border-color: rgba(191,56,36,0.5);
+    background: rgba(191,56,36,0.05);
   }
 
   /* slider */
@@ -379,7 +379,7 @@
     background: var(--red);
     border-radius: 50%;
     margin-top: -9px;
-    box-shadow: 0 0 12px rgba(192,57,43,0.5);
+    box-shadow: 0 0 12px rgba(191,56,36,0.5);
     transition: transform 0.15s var(--ease);
     border: none;
   }
@@ -389,7 +389,7 @@
     background: var(--red);
     border-radius: 50%;
     border: none;
-    box-shadow: 0 0 12px rgba(192,57,43,0.5);
+    box-shadow: 0 0 12px rgba(191,56,36,0.5);
   }
   input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.15); }
   .slider-labels {
@@ -419,8 +419,8 @@
     justify-content: center;
     gap: 10px;
     padding: 14px 22px;
-    background: rgba(192,57,43,0.08);
-    border: 1px solid rgba(192,57,43,0.45);
+    background: rgba(191,56,36,0.08);
+    border: 1px solid rgba(191,56,36,0.45);
     border-radius: 4px;
     color: var(--dark);
     font-family: var(--font-body);
@@ -442,7 +442,7 @@
     height: 12px;
     background: var(--red);
     border-radius: 50%;
-    box-shadow: 0 0 0 2px rgba(192,57,43,0.3);
+    box-shadow: 0 0 0 2px rgba(191,56,36,0.3);
     transition: background 0.2s var(--ease), box-shadow 0.2s var(--ease);
   }
   .vc-btn-record:hover .rec-circle {
@@ -467,14 +467,14 @@
     gap: 14px;
     padding: 14px 18px;
     background: var(--cream);
-    border: 2px dashed rgba(192,57,43,0.35);
+    border: 2px dashed rgba(191,56,36,0.35);
     border-radius: 4px;
     cursor: pointer;
     text-align: left;
     transition: background 0.2s var(--ease), border-color 0.2s var(--ease);
   }
   .vc-upload-zone:hover, .vc-upload-zone.dragover {
-    background: rgba(192,57,43,0.05);
+    background: rgba(191,56,36,0.05);
     border-color: var(--red);
   }
   .vc-upload-zone .vc-up-icon {
@@ -566,7 +566,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #FF6B5B;
+    color: #8C1111;
     font-size: 12px;
     font-weight: 700;
     font-variant-numeric: tabular-nums;
@@ -574,7 +574,7 @@
   }
   .rec-pulse {
     width: 9px; height: 9px;
-    background: #FF3D2E;
+    background: #8C1111;
     border-radius: 50%;
     animation: recPulse 1.2s ease-in-out infinite;
   }
@@ -636,8 +636,8 @@
     align-items: center;
     gap: 14px;
     padding: 14px 18px;
-    background: rgba(192,57,43,0.06);
-    border: 1px solid rgba(192,57,43,0.3);
+    background: rgba(191,56,36,0.06);
+    border: 1px solid rgba(191,56,36,0.3);
     border-radius: 2px;
     margin-top: 12px;
   }
@@ -645,7 +645,7 @@
   .video-success .check {
     width: 32px;
     height: 32px;
-    background: rgba(192,57,43,0.15);
+    background: rgba(191,56,36,0.15);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -823,8 +823,8 @@
     justify-content: center;
   }
   .dp-day:hover:not(:disabled) {
-    background: rgba(192,57,43,0.08);
-    border-color: rgba(192,57,43,0.4);
+    background: rgba(191,56,36,0.08);
+    border-color: rgba(191,56,36,0.4);
   }
   .dp-day.other-month {
     color: rgba(0,0,0,0.18);
@@ -916,7 +916,7 @@
   .submit-btn:hover {
     background: var(--red-light);
     transform: translateY(-3px);
-    box-shadow: 0 16px 36px rgba(192,57,43,0.36);
+    box-shadow: 0 16px 36px rgba(191,56,36,0.36);
   }
   .submit-btn:disabled {
     opacity: 0.55;
@@ -934,7 +934,7 @@
   .submission-success .icon-ring {
     width: 88px;
     height: 88px;
-    background: rgba(192,57,43,0.08);
+    background: rgba(191,56,36,0.08);
     border: 2px solid var(--red);
     border-radius: 50%;
     display: flex;
