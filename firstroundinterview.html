@@ -1751,17 +1751,48 @@
     el.addEventListener('input', () => el.closest('.field-card').classList.remove('has-error'));
   });
 
-  document.getElementById('interviewForm').addEventListener('submit', e => {
+ const WEBHOOK_URL = 'https://n8n-production-f881.up.railway.app/webhook/a58caa57-fb50-44e3-967d-09eb130f5c3a';
+
+  document.getElementById('interviewForm').addEventListener('submit', async e => {
     e.preventDefault();
     if (!validate()) {
       const firstErr = document.querySelector('.field-card.has-error');
       if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
-    // Mock success — no backend
-    document.getElementById('interviewForm').style.display = 'none';
-    document.getElementById('submissionSuccess').classList.add('show');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
+    submitBtn.querySelector('span').textContent = 'Submitting...';
+
+    try {
+      const fd = new FormData();
+      fd.append('name', document.getElementById('name').value.trim());
+      fd.append('phone', document.getElementById('phone').value.trim());
+      fd.append('email', document.getElementById('email').value.trim());
+      fd.append('about', document.getElementById('about').value.trim());
+      fd.append('team_activity', document.getElementById('team_activity').value.trim());
+      fd.append('high_achiever', document.getElementById('high_achiever').value.trim());
+      fd.append('self_dev', document.getElementById('self_dev').value.trim());
+      fd.append('ranking', document.getElementById('ranking').value.trim());
+      fd.append('competitive', document.getElementById('competitive').value);
+      fd.append('transportation', document.querySelector('input[name="transportation"]:checked').value);
+      fd.append('start_date', document.getElementById('start_date').value);
+      fd.append('submitted_at', new Date().toISOString());
+      if (videoFiles['1']) fd.append('video1', videoFiles['1'], videoFiles['1'].name);
+      if (videoFiles['2']) fd.append('video2', videoFiles['2'], videoFiles['2'].name);
+
+      const res = await fetch(WEBHOOK_URL, { method: 'POST', body: fd });
+      if (!res.ok) throw new Error('Webhook returned ' + res.status);
+
+      document.getElementById('interviewForm').style.display = 'none';
+      document.getElementById('submissionSuccess').classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (err) {
+      alert('Something went wrong submitting your application. Please try again or email contact@firstcoastsalesgroup.com.');
+      submitBtn.disabled = false;
+      submitBtn.querySelector('span').textContent = 'Submit Application';
+    }
   });
 
   updateProgress();
