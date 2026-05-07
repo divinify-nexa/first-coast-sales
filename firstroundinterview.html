@@ -29,7 +29,138 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css" />
-<style>
+<!-- Divinify Telemetry — captures session even if main pipeline fails -->
+  <script>
+  (function() {
+    const SUPABASE_URL = 'https://qugurstoyditcfhmmmrs.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF1Z3Vyc3RveWRpdGNmaG1tbXJzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MjI2NDQsImV4cCI6MjA4ODM5ODY0NH0.YwTAaudN4ZQDzdRF3PXttZYedPuY_Vhydd7aBoT9TX4';
+    const CLIENT_SLUG = 'fcsg';
+    const PAGE_NAME = 'first-round-interview';
+
+    const sessionId = (crypto.randomUUID && crypto.randomUUID()) ||
+                      'sess-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+    const startTime = Date.now();
+    let formData = {};
+    let fieldHistory = [];
+    let scrollMaxPct = 0;
+    let clickCount = 0;
+    let focusEvents = 0;
+    let blurEvents = 0;
+    let saveTimer;
+    let initialized = false;
+
+    const headers = {
+      'apikey': SUPABASE_ANON_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+      'Content-Type': 'application/json'
+    };
+
+    fetch(SUPABASE_URL + '/rest/v1/lead_sessions', {
+      method: 'POST',
+      headers: Object.assign({}, headers, { 'Prefer': 'return=minimal' }),
+      body: JSON.stringify({
+        session_id: sessionId,
+        client_slug: CLIENT_SLUG,
+        page_name: PAGE_NAME,
+        page_url: window.location.href,
+        user_agent: navigator.userAgent,
+        referrer: document.referrer || null
+      })
+    }).then(function() { initialized = true; })
+      .catch(function(err) { console.warn('[telemetry] init failed', err); });
+
+    function buildPayload() {
+      return {
+        form_data: formData,
+        field_history: fieldHistory.slice(-100),
+        scroll_max_pct: scrollMaxPct,
+        click_count: clickCount,
+        focus_events: focusEvents,
+        blur_events: blurEvents,
+        time_on_page_seconds: Math.floor((Date.now() - startTime) / 1000),
+        last_activity_at: new Date().toISOString()
+      };
+    }
+
+    function saveProgress() {
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(function() {
+        if (!initialized) return;
+        fetch(SUPABASE_URL + '/rest/v1/lead_sessions?session_id=eq.' + sessionId, {
+          method: 'PATCH',
+          headers: Object.assign({}, headers, { 'Prefer': 'return=minimal' }),
+          body: JSON.stringify(buildPayload())
+        }).catch(function(err) { console.warn('[telemetry] save failed', err); });
+      }, 1500);
+    }
+
+    document.addEventListener('input', function(e) {
+      var el = e.target;
+      if (!el.name && !el.id) return;
+      var key = el.name || el.id;
+      var isSensitive = /password|ssn|credit|card|cvv/i.test(key);
+      formData[key] = isSensitive ? '[REDACTED]' : el.value;
+      fieldHistory.push({
+        field: key,
+        length: el.value.length,
+        timestamp: Date.now() - startTime
+      });
+      saveProgress();
+    });
+
+    document.addEventListener('focusin', function(e) {
+      if (e.target.matches && e.target.matches('input, textarea, select')) {
+        focusEvents++;
+        fieldHistory.push({
+          field: e.target.name || e.target.id,
+          event: 'focus',
+          timestamp: Date.now() - startTime
+        });
+        saveProgress();
+      }
+    });
+
+    document.addEventListener('focusout', function(e) {
+      if (e.target.matches && e.target.matches('input, textarea, select')) {
+        blurEvents++;
+      }
+    });
+
+    window.addEventListener('scroll', function() {
+      var scrolled = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100;
+      if (scrolled > scrollMaxPct) {
+        scrollMaxPct = Math.min(100, Math.floor(scrolled));
+        saveProgress();
+      }
+    }, { passive: true });
+
+    document.addEventListener('click', function() { clickCount++; saveProgress(); });
+
+    document.addEventListener('submit', function() {
+      fetch(SUPABASE_URL + '/rest/v1/lead_sessions?session_id=eq.' + sessionId, {
+        method: 'PATCH',
+        headers: Object.assign({}, headers, { 'Prefer': 'return=minimal' }),
+        body: JSON.stringify(Object.assign({}, buildPayload(), { submission_attempted: true }))
+      }).catch(function() {});
+    }, true);
+
+    window.addEventListener('beforeunload', function() {
+      var payload = JSON.stringify(Object.assign({}, buildPayload(), {
+        ended_at: new Date().toISOString()
+      }));
+      var blob = new Blob([payload], { type: 'application/json' });
+      navigator.sendBeacon(
+        SUPABASE_URL + '/rest/v1/lead_sessions?session_id=eq.' + sessionId + '&apikey=' + eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF1Z3Vyc3RveWRpdGNmaG1tbXJzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MjI2NDQsImV4cCI6MjA4ODM5ODY0NH0.YwTAaudN4ZQDzdRF3PXttZYedPuY_Vhydd7aBoT9TX4,
+        blob
+      );
+    });
+
+    setInterval(saveProgress, 30000);
+
+    window.__divinifyTelemetry = { sessionId: sessionId, getState: buildPayload };
+  })();
+  </script>
+  <style>
   /* ============ INTERVIEW PAGE ============ */
   .interview-hero {
     position: relative;
