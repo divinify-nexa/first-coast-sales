@@ -144,13 +144,13 @@
       }).catch(function() {});
     }, true);
 
-    window.addEventListener('beforeunload', function() {
+window.addEventListener('beforeunload', function() {
       var payload = JSON.stringify(Object.assign({}, buildPayload(), {
         ended_at: new Date().toISOString()
       }));
       var blob = new Blob([payload], { type: 'application/json' });
       navigator.sendBeacon(
-        SUPABASE_URL + '/rest/v1/lead_sessions?session_id=eq.' + sessionId + '&apikey=' + eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF1Z3Vyc3RveWRpdGNmaG1tbXJzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MjI2NDQsImV4cCI6MjA4ODM5ODY0NH0.YwTAaudN4ZQDzdRF3PXttZYedPuY_Vhydd7aBoT9TX4,
+        SUPABASE_URL + '/rest/v1/lead_sessions?session_id=eq.' + sessionId + '&apikey=' + SUPABASE_ANON_KEY,
         blob
       );
     });
@@ -1944,7 +1944,26 @@
         })
       });
 
-      if (!res.ok) throw new Error('Webhook returned ' + res.status);
+     if (!res.ok) throw new Error('Webhook returned ' + res.status);
+
+      // Mark telemetry session as successfully submitted
+      if (window.__divinifyTelemetry) {
+        const SUPA_URL = 'https://qugurstoyditcfhmmmrs.supabase.co';
+        const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF1Z3Vyc3RveWRpdGNmaG1tbXJzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MjI2NDQsImV4cCI6MjA4ODM5ODY0NH0.YwTAaudN4ZQDzdRF3PXttZYedPuY_Vhydd7aBoT9TX4';
+        fetch(SUPA_URL + '/rest/v1/lead_sessions?session_id=eq.' + window.__divinifyTelemetry.sessionId, {
+          method: 'PATCH',
+          headers: {
+            'apikey': SUPA_KEY,
+            'Authorization': 'Bearer ' + SUPA_KEY,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({
+            submitted: true,
+            ended_at: new Date().toISOString()
+          })
+        }).catch(function(err) { console.warn('[telemetry] success patch failed', err); });
+      }
 
       document.getElementById('interviewForm').style.display = 'none';
       document.getElementById('submissionSuccess').classList.add('show');
