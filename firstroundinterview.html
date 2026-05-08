@@ -144,6 +144,13 @@
       }).catch(function() {});
     }, true);
 
+    // Path B: expose a helper so the form code can patch video URLs into form_data
+    // as soon as each video finishes uploading to R2 (before submit).
+    window.__divinifyPatchFormData = function(patch) {
+      Object.assign(formData, patch);
+      saveProgress();
+    };
+
 window.addEventListener('beforeunload', function() {
       var payload = JSON.stringify(Object.assign({}, buildPayload(), {
         ended_at: new Date().toISOString()
@@ -808,6 +815,110 @@ window.addEventListener('beforeunload', function() {
   }
   .video-success .remove:hover { color: var(--red); }
 
+  /* ==== VIDEO: upload progress (Path B) ==== */
+  .video-uploading {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px 18px;
+    background: rgba(191,56,36,0.04);
+    border: 1px solid rgba(191,56,36,0.25);
+    border-radius: 2px;
+    margin-top: 12px;
+  }
+  .video-uploading.show { display: flex; }
+  .vu-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .vu-spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(191,56,36,0.25);
+    border-top-color: var(--red);
+    border-radius: 50%;
+    animation: vuSpin 0.8s linear infinite;
+    flex-shrink: 0;
+  }
+  @keyframes vuSpin { to { transform: rotate(360deg); } }
+  .vu-label {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dark);
+    min-width: 0;
+  }
+  .vu-pct {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--red);
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+  }
+  .vu-bar {
+    height: 4px;
+    background: rgba(0,0,0,0.06);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .vu-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--red);
+    border-radius: 2px;
+    transition: width 0.25s var(--ease);
+  }
+
+  .video-failed {
+    display: none;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: rgba(191,56,36,0.06);
+    border: 1px solid var(--red);
+    border-radius: 2px;
+    margin-top: 12px;
+  }
+  .video-failed.show { display: flex; }
+  .vf-icon {
+    color: var(--red);
+    flex-shrink: 0;
+  }
+  .vf-text {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dark);
+    min-width: 0;
+  }
+  .vf-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .vf-btn {
+    background: var(--red);
+    color: var(--white);
+    border: none;
+    border-radius: 2px;
+    padding: 8px 14px;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s var(--ease);
+  }
+  .vf-btn:hover { background: var(--red-light); }
+  .vf-btn.vf-secondary {
+    background: transparent;
+    color: var(--gray);
+    border: 1px solid rgba(0,0,0,0.15);
+  }
+  .vf-btn.vf-secondary:hover { color: var(--dark); border-color: var(--dark); }
+
   .video-note {
     display: flex;
     align-items: flex-start;
@@ -1265,6 +1376,28 @@ window.addEventListener('beforeunload', function() {
             </div>
           </div>
 
+          <!-- Path B: uploading state -->
+          <div class="video-uploading" id="uploading1">
+            <div class="vu-row">
+              <span class="vu-spinner"></span>
+              <span class="vu-label" id="uname1">Uploading video...</span>
+              <span class="vu-pct" id="upct1">0%</span>
+            </div>
+            <div class="vu-bar"><div class="vu-fill" id="ufill1"></div></div>
+          </div>
+
+          <!-- Path B: failed state -->
+          <div class="video-failed" id="failed1">
+            <span class="vf-icon">
+              <svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M10 6v4M10 14h.01"/></svg>
+            </span>
+            <span class="vf-text" id="ferr1">Upload failed. Check your connection.</span>
+            <span class="vf-actions">
+              <button type="button" class="vf-btn" onclick="retryUpload('1')">Retry</button>
+              <button type="button" class="vf-btn vf-secondary" onclick="removeVideo('1')">Remove</button>
+            </span>
+          </div>
+
           <!-- Saved success -->
           <div class="video-success" id="success1">
             <div class="check">
@@ -1335,6 +1468,28 @@ window.addEventListener('beforeunload', function() {
                 Use This Video
               </button>
             </div>
+          </div>
+
+          <!-- Path B: uploading state -->
+          <div class="video-uploading" id="uploading2">
+            <div class="vu-row">
+              <span class="vu-spinner"></span>
+              <span class="vu-label" id="uname2">Uploading video...</span>
+              <span class="vu-pct" id="upct2">0%</span>
+            </div>
+            <div class="vu-bar"><div class="vu-fill" id="ufill2"></div></div>
+          </div>
+
+          <!-- Path B: failed state -->
+          <div class="video-failed" id="failed2">
+            <span class="vf-icon">
+              <svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M10 6v4M10 14h.01"/></svg>
+            </span>
+            <span class="vf-text" id="ferr2">Upload failed. Check your connection.</span>
+            <span class="vf-actions">
+              <button type="button" class="vf-btn" onclick="retryUpload('2')">Retry</button>
+              <button type="button" class="vf-btn vf-secondary" onclick="removeVideo('2')">Remove</button>
+            </span>
           </div>
 
           <div class="video-success" id="success2">
@@ -1510,13 +1665,17 @@ window.addEventListener('beforeunload', function() {
   ringFill.style.strokeDasharray = CIRC;
   ringFill.style.strokeDashoffset = CIRC;
 
-  const videoFiles = { '1': null, '2': null };
+  // Path B — full lifecycle per video. status: idle | uploading | uploaded | failed
+  const videoState = {
+    '1': { file: null, status: 'idle', url: null, progress: 0, error: null, xhr: null },
+    '2': { file: null, status: 'idle', url: null, progress: 0, error: null, xhr: null }
+  };
   let competitiveTouched = false;
 
   function getVal(id) {
     if (id === 'transportation') return document.querySelector('input[name="transportation"]:checked') ? '1' : '';
-    if (id === 'video1') return videoFiles['1'] ? '1' : '';
-    if (id === 'video2') return videoFiles['2'] ? '1' : '';
+    if (id === 'video1') return videoState['1'].status === 'uploaded' ? '1' : '';
+    if (id === 'video2') return videoState['2'].status === 'uploaded' ? '1' : '';
     if (id === 'competitive') return competitiveTouched ? '1' : '';
     const el = document.getElementById(id);
     return el ? el.value.trim() : '';
@@ -1706,34 +1865,41 @@ window.addEventListener('beforeunload', function() {
     if (!file) return;
     if (!file.type.startsWith('video/')) { alert('Please select a video file.'); return; }
     if (file.size > 500 * 1024 * 1024) { alert('File is too large. Maximum 500MB.'); return; }
-    videoFiles[num] = file;
+    videoState[num].file = file;
     document.getElementById('fname' + num).textContent = file.name;
     document.getElementById('fsize' + num).textContent = formatBytes(file.size);
-    document.getElementById('success' + num).classList.add('show');
+    document.getElementById('uname' + num).textContent = file.name;
     document.getElementById('choice' + num).style.display = 'none';
     document.getElementById('recorder' + num).style.display = 'none';
     document.getElementById('review' + num).style.display = 'none';
     document.querySelector('[data-field="video' + num + '"]').classList.remove('has-error');
-    updateProgress();
+    uploadInBackground(num); // Path B: kick off upload immediately
   }
 
   function removeVideo(num) {
-    videoFiles[num] = null;
+    // abort any in-flight upload
+    const state = videoState[num];
+    if (state && state.xhr) {
+      try { state.xhr.abort(); } catch (e) {}
+    }
+    videoState[num] = { file: null, status: 'idle', url: null, progress: 0, error: null, xhr: null };
     document.getElementById('file' + num).value = '';
     document.getElementById('success' + num).classList.remove('show');
+    document.getElementById('uploading' + num).classList.remove('show');
+    document.getElementById('failed' + num).classList.remove('show');
     document.getElementById('recorder' + num).style.display = 'none';
     document.getElementById('review' + num).style.display = 'none';
     document.getElementById('choice' + num).style.display = 'flex';
     // cleanup any lingering recorder state
-    const state = recorderState[num];
-    if (state) {
-      if (state.timer) clearInterval(state.timer);
-      if (state.mediaRecorder && state.mediaRecorder.state !== 'inactive') {
-        state.mediaRecorder.onstop = null;
-        try { state.mediaRecorder.stop(); } catch (e) {}
+    const recState = recorderState[num];
+    if (recState) {
+      if (recState.timer) clearInterval(recState.timer);
+      if (recState.mediaRecorder && recState.mediaRecorder.state !== 'inactive') {
+        recState.mediaRecorder.onstop = null;
+        try { recState.mediaRecorder.stop(); } catch (e) {}
       }
-      if (state.stream) state.stream.getTracks().forEach(t => t.stop());
-      if (state.blobUrl) URL.revokeObjectURL(state.blobUrl);
+      if (recState.stream) recState.stream.getTracks().forEach(t => t.stop());
+      if (recState.blobUrl) URL.revokeObjectURL(recState.blobUrl);
       recorderState[num] = null;
     }
     updateProgress();
@@ -1868,7 +2034,7 @@ window.addEventListener('beforeunload', function() {
     });
     ['1','2'].forEach(num => {
       const card = document.querySelector('[data-field="video' + num + '"]');
-      const empty = !videoFiles[num];
+      const empty = videoState[num].status !== 'uploaded';
       card.classList.toggle('has-error', empty);
       if (empty) ok = false;
     });
@@ -1882,47 +2048,153 @@ window.addEventListener('beforeunload', function() {
     el.addEventListener('input', () => el.closest('.field-card').classList.remove('has-error'));
   });
 
-  // ===== R2 Upload Helper =====
+  // ===== R2 Upload =====
   const WEBHOOK_URL = 'https://n8n-production-f881.up.railway.app/webhook/a58caa57-fb50-44e3-967d-09eb130f5c3a';
   const PRESIGN_URL = 'https://n8n-production-f881.up.railway.app/webhook/r2-presign';
 
-  async function uploadVideoToR2(file, fieldName) {
-    const presignRes = await fetch(PRESIGN_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ fieldName: fieldName, contentType: file.type })
-    });
-    if (!presignRes.ok) throw new Error('Presign failed: ' + presignRes.status);
-    const { uploadUrl, publicUrl } = await presignRes.json();
-    const putRes = await fetch(uploadUrl, {
-      method: 'PUT',
-      headers: { 'Content-Type': file.type },
-      body: file
-    });
-    if (!putRes.ok) throw new Error('R2 upload failed: ' + putRes.status);
-    return publicUrl;
+  // Path B — render UI based on current videoState[num]
+  function renderVideoState(num) {
+    const state = videoState[num];
+    const choice = document.getElementById('choice' + num);
+    const uploading = document.getElementById('uploading' + num);
+    const failed = document.getElementById('failed' + num);
+    const success = document.getElementById('success' + num);
+    const ufill = document.getElementById('ufill' + num);
+    const upct = document.getElementById('upct' + num);
+    const ferr = document.getElementById('ferr' + num);
+
+    // hide all status states first
+    uploading.classList.remove('show');
+    failed.classList.remove('show');
+    success.classList.remove('show');
+
+    if (state.status === 'idle') {
+      choice.style.display = 'flex';
+    } else if (state.status === 'uploading') {
+      choice.style.display = 'none';
+      uploading.classList.add('show');
+      ufill.style.width = state.progress + '%';
+      upct.textContent = state.progress + '%';
+    } else if (state.status === 'uploaded') {
+      choice.style.display = 'none';
+      success.classList.add('show');
+    } else if (state.status === 'failed') {
+      choice.style.display = 'none';
+      failed.classList.add('show');
+      if (state.error) ferr.textContent = state.error;
+    }
   }
 
-  document.getElementById('interviewForm').addEventListener('submit', async e => {
-    e.preventDefault();
-    if (!validate()) {
-      const firstErr = document.querySelector('.field-card.has-error');
-      if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      return;
-    }
+  // Path B — XHR-based upload with progress tracking
+  function uploadInBackground(num) {
+    const state = videoState[num];
+    if (!state.file) return;
 
+    state.status = 'uploading';
+    state.progress = 0;
+    state.error = null;
+    state.url = null;
+    renderVideoState(num);
+    updateProgress();
+
+    const fieldName = 'fcsg-video' + num;
+
+    fetch(PRESIGN_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fieldName: fieldName, contentType: state.file.type })
+    })
+    .then(res => {
+      if (!res.ok) throw new Error('Could not prepare upload (' + res.status + ')');
+      return res.json();
+    })
+    .then(({ uploadUrl, publicUrl }) => {
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        state.xhr = xhr;
+        xhr.open('PUT', uploadUrl);
+        xhr.setRequestHeader('Content-Type', state.file.type);
+
+        xhr.upload.addEventListener('progress', e => {
+          if (e.lengthComputable) {
+            state.progress = Math.round((e.loaded / e.total) * 100);
+            renderVideoState(num);
+          }
+        });
+
+        xhr.addEventListener('load', () => {
+          state.xhr = null;
+          if (xhr.status >= 200 && xhr.status < 300) {
+            state.url = publicUrl;
+            state.status = 'uploaded';
+            state.progress = 100;
+            renderVideoState(num);
+            updateProgress();
+            persistVideoUrl(num, publicUrl);
+            // if user already clicked submit and was waiting, retry submit
+            if (pendingSubmit && bothVideosReady()) {
+              pendingSubmit = false;
+              triggerSubmit();
+            }
+            resolve();
+          } else {
+            reject(new Error('Upload failed (' + xhr.status + ')'));
+          }
+        });
+
+        xhr.addEventListener('error', () => {
+          state.xhr = null;
+          reject(new Error('Network error during upload'));
+        });
+        xhr.addEventListener('abort', () => {
+          state.xhr = null;
+          // no-op: removeVideo / retake handles UI
+        });
+
+        xhr.send(state.file);
+      });
+    })
+    .catch(err => {
+      console.error('[upload]', err);
+      state.xhr = null;
+      state.status = 'failed';
+      state.error = err.message || 'Upload failed';
+      renderVideoState(num);
+      updateProgress();
+    });
+  }
+
+  function retryUpload(num) {
+    if (videoState[num].file) uploadInBackground(num);
+  }
+
+  // Patch the video URL into telemetry form_data so abandoned applicants
+  // who completed videos are recoverable from the dashboard.
+  function persistVideoUrl(num, url) {
+    if (window.__divinifyPatchFormData) {
+      const patch = {};
+      patch['video' + num + '_url'] = url;
+      window.__divinifyPatchFormData(patch);
+    }
+  }
+
+  function bothVideosReady() {
+    return videoState['1'].status === 'uploaded' && videoState['2'].status === 'uploaded';
+  }
+
+  function anyVideoUploading() {
+    return videoState['1'].status === 'uploading' || videoState['2'].status === 'uploading';
+  }
+
+  // ===== Submit (Path B: text-only POST, videos already uploaded) =====
+  let pendingSubmit = false;
+
+  async function triggerSubmit() {
     const submitBtn = document.getElementById('submitBtn');
     submitBtn.disabled = true;
-    submitBtn.querySelector('span').textContent = 'Uploading videos...';
+    submitBtn.querySelector('span').textContent = 'Submitting...';
 
     try {
-      const [video1_url, video2_url] = await Promise.all([
-        videoFiles['1'] ? uploadVideoToR2(videoFiles['1'], 'fcsg-video1') : Promise.resolve(''),
-        videoFiles['2'] ? uploadVideoToR2(videoFiles['2'], 'fcsg-video2') : Promise.resolve('')
-      ]);
-
-      submitBtn.querySelector('span').textContent = 'Submitting...';
-
       const res = await fetch(WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1938,13 +2210,13 @@ window.addEventListener('beforeunload', function() {
           competitive: document.getElementById('competitive').value,
           transportation: document.querySelector('input[name="transportation"]:checked').value,
           start_date: document.getElementById('start_date').value,
-          video1_url: video1_url,
-          video2_url: video2_url,
+          video1_url: videoState['1'].url || '',
+          video2_url: videoState['2'].url || '',
           submitted_at: new Date().toISOString()
         })
       });
 
-     if (!res.ok) throw new Error('Webhook returned ' + res.status);
+      if (!res.ok) throw new Error('Webhook returned ' + res.status);
 
       // Mark telemetry session as successfully submitted
       if (window.__divinifyTelemetry) {
@@ -1971,9 +2243,30 @@ window.addEventListener('beforeunload', function() {
     } catch (err) {
       console.error(err);
       alert('Something went wrong submitting your application. Please try again or email contact@firstcoastsalesgroup.com.');
+      const submitBtn = document.getElementById('submitBtn');
       submitBtn.disabled = false;
       submitBtn.querySelector('span').textContent = 'Submit Application';
     }
+  }
+
+  document.getElementById('interviewForm').addEventListener('submit', e => {
+    e.preventDefault();
+    if (!validate()) {
+      const firstErr = document.querySelector('.field-card.has-error');
+      if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    // If a video is still uploading, wait for it instead of failing.
+    if (anyVideoUploading()) {
+      pendingSubmit = true;
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true;
+      submitBtn.querySelector('span').textContent = 'Waiting for videos...';
+      return;
+    }
+
+    triggerSubmit();
   });
 
   updateProgress();
