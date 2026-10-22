@@ -1273,22 +1273,6 @@ window.addEventListener('beforeunload', function() {
           <div class="err-msg">Required.</div>
         </div>
 
-        <div class="sms-consent">
-          <label class="sms-consent-label" for="sms_consent">
-            <input type="checkbox" id="sms_consent" name="sms_consent" value="true" aria-describedby="sms_consent-detail" />
-            <span>Text me about my application from First Coast Sales Group at the number above.</span>
-          </label>
-          <div class="sms-consent-detail" id="sms_consent-detail">
-            <p class="receive">You'd receive:</p>
-            <ul>
-              <li>Interview scheduling, confirmations, and reminders</li>
-              <li>Updates on the status of your application</li>
-              <li>Replies to questions you send our recruiting team</li>
-            </ul>
-            <p>Optional — consent is not a condition of employment consideration, of submitting an application, or of being interviewed. Message frequency varies. Message and data rates may apply. Reply STOP to opt out at any time, or HELP for help. Full <a href="/terms#communications-consent">SMS terms</a> and <a href="/privacy">Privacy Policy</a>.</p>
-          </div>
-        </div>
-
         <div class="field-card" data-field="email">
           <label class="field-label" for="email">Email Address <span class="req">*</span></label>
           <input type="email" id="email" name="email" placeholder="e.g. jordan@email.com" autocomplete="email" required />
@@ -2217,7 +2201,6 @@ window.addEventListener('beforeunload', function() {
 
     try {
       const submittedAt = new Date().toISOString();
-      const smsConsent = document.getElementById('sms_consent').checked;
       const res = await fetch(WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -2235,8 +2218,6 @@ window.addEventListener('beforeunload', function() {
           start_date: document.getElementById('start_date').value,
           video1_url: videoState['1'].url || '',
           video2_url: videoState['2'].url || '',
-          sms_consent: smsConsent,
-          sms_consent_at: smsConsent ? submittedAt : null,
           source_page: window.location.pathname,
           submitted_at: submittedAt
         })
