@@ -143,11 +143,38 @@ function initWaveCanvas(canvas, opts = {}) {
 
 document.querySelectorAll('canvas[data-wave]').forEach(c => initWaveCanvas(c));
 
-// ----- Form handling (no backend — show success) -----
+// ----- Submission payload -----
+// Every form submits through submitForm(), so this is the one place to wire a
+// backend (email, webhook, sheet). Checkboxes are recorded as true/false so an
+// unchecked sms_consent is captured explicitly, not dropped like FormData would.
+function buildPayload(form) {
+  const data = {};
+  form.querySelectorAll('input[name], textarea[name], select[name]').forEach(el => {
+    if (el.type === 'file') return;
+    if (el.type === 'checkbox') data[el.name] = el.checked;
+    else if (el.type === 'radio') { if (el.checked) data[el.name] = el.value; }
+    else data[el.name] = el.value.trim();
+  });
+  if ('sms_consent' in data) {
+    data.sms_consent_at = data.sms_consent ? new Date().toISOString() : null;
+  }
+  data.source_page = window.location.pathname;
+  data.submitted_at = new Date().toISOString();
+  return data;
+}
+
+function submitForm(form) {
+  const payload = buildPayload(form);
+  // No backend yet — replace with e.g. fetch(ENDPOINT, { method: 'POST', body: JSON.stringify(payload) })
+  return Promise.resolve(payload);
+}
+
+// ----- Form handling -----
 (function initForms() {
   document.querySelectorAll('form[data-form]').forEach(form => {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      await submitForm(form);
       const msg = form.querySelector('.form-msg');
       if (msg) {
         msg.textContent = form.dataset.successMessage || 'Thanks — we\'ll be in touch soon.';

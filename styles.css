@@ -1645,3 +1645,232 @@ section {
   }
   .fade-up { opacity: 1; transform: none; }
 }
+
+/* ============================================
+   FOOTER — LEGAL LINKS
+   ============================================ */
+
+.footer-legal {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-legal a:hover { color: var(--red-light); }
+
+/* ============================================
+   SMS CONSENT (forms)
+   ============================================ */
+
+.sms-consent {
+  margin: -4px 0 18px;
+  padding: 16px 18px;
+  background: var(--cream);
+  border-left: 3px solid var(--red);
+  border-radius: 2px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--gray-dark);
+}
+
+.contact-form .sms-consent { margin-top: -8px; }
+
+.sms-consent-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--dark);
+  cursor: pointer;
+}
+
+.sms-consent-label input[type="checkbox"] {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--red);
+  cursor: pointer;
+}
+
+.sms-consent-detail { padding-left: 30px; }
+
+.sms-consent-detail p { font-size: 13px; }
+
+.sms-consent-detail .receive {
+  margin-top: 8px;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.sms-consent-detail ul {
+  margin: 4px 0 8px 18px;
+}
+
+.sms-consent a,
+.form-privacy-note a {
+  color: var(--red);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.form-privacy-note {
+  margin-top: 14px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--gray-dark);
+}
+
+/* ============================================
+   LEGAL PAGES (Privacy, Terms)
+   ============================================ */
+
+.legal-meta {
+  background: var(--cream);
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.legal-meta dl {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px 32px;
+}
+
+@media (max-width: 700px) {
+  .legal-meta dl { grid-template-columns: 1fr; }
+}
+
+.legal-meta dt {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+.legal-meta dd {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.legal-body { padding: clamp(48px, 6vw, 80px) 0 var(--section-pad); }
+
+.legal-intro {
+  font-size: 18px;
+  color: var(--gray-dark);
+  margin-bottom: 36px;
+}
+
+.legal-body a {
+  color: var(--red);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.legal-toc {
+  background: var(--cream);
+  border-top: 4px solid var(--red);
+  border-radius: 4px;
+  padding: 28px 32px;
+  margin-bottom: 56px;
+}
+
+.legal-toc h2 {
+  font-size: 22px;
+  letter-spacing: 0.16em;
+  margin-bottom: 14px;
+}
+
+.legal-toc ol {
+  list-style: none;
+  columns: 2;
+  column-gap: 32px;
+}
+
+@media (max-width: 600px) {
+  .legal-toc { padding: 24px 20px; }
+  .legal-toc ol { columns: 1; }
+}
+
+.legal-toc li {
+  break-inside: avoid;
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
+.legal-toc a {
+  color: var(--dark);
+  text-decoration: none;
+}
+
+.legal-toc a:hover { color: var(--red); }
+
+.legal-toc .num {
+  font-family: var(--font-display);
+  color: var(--red);
+  letter-spacing: 0.08em;
+  margin-right: 10px;
+}
+
+.legal-section {
+  scroll-margin-top: 110px;
+  padding: 0 0 40px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.legal-section:last-child { border-bottom: none; margin-bottom: 0; }
+
+.legal-section > h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  font-size: clamp(28px, 4vw, 40px);
+  margin-bottom: 18px;
+}
+
+.legal-section > h2 .num {
+  flex: none;
+  background: var(--red);
+  color: var(--white);
+  font-size: 16px;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 2px;
+  transform: translateY(-4px);
+}
+
+.legal-section h3 {
+  font-size: 22px;
+  letter-spacing: 0.06em;
+  margin: 28px 0 10px;
+}
+
+.legal-section p,
+.legal-section li {
+  color: var(--gray-dark);
+  font-size: 1.0625rem;
+}
+
+.legal-section p + p { margin-top: 14px; }
+
+.legal-section ul {
+  margin: 12px 0 14px 22px;
+}
+
+.legal-section li { margin-bottom: 6px; }
+
+.legal-section li strong { color: var(--dark); }
+
+.legal-callout {
+  margin: 18px 0;
+  padding: 18px 22px;
+  background: var(--cream);
+  border-left: 4px solid var(--red);
+  border-radius: 2px;
+  font-weight: 600;
+  color: var(--dark) !important;
+}

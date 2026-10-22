@@ -90,7 +90,7 @@
             </div>
             <div>
               <span class="label">Office</span>
-              <span class="value">9000 Cypress Green Drive<br/>Jacksonville, FL</span>
+              <span class="value">9000 Cypress Green Dr, Ste 102<br/>Jacksonville, FL 32256</span>
             </div>
           </li>
           <li>
@@ -131,12 +131,29 @@
           <input type="tel" id="c-phone" name="phone" />
         </div>
 
+        <div class="sms-consent">
+          <label class="sms-consent-label" for="c-sms-consent">
+            <input type="checkbox" id="c-sms-consent" name="sms_consent" value="true" aria-describedby="c-sms-consent-detail" />
+            <span>Text me about my application from First Coast Sales Group at the number above.</span>
+          </label>
+          <div class="sms-consent-detail" id="c-sms-consent-detail">
+            <p class="receive">You'd receive:</p>
+            <ul>
+              <li>Interview scheduling, confirmations, and reminders</li>
+              <li>Updates on the status of your application</li>
+              <li>Replies to questions you send our recruiting team</li>
+            </ul>
+            <p>Optional — consent is not a condition of employment consideration, of submitting an application, or of being interviewed. Message frequency varies. Message and data rates may apply. Reply STOP to opt out at any time, or HELP for help. Full <a href="/terms#communications-consent">SMS terms</a> and <a href="/privacy">Privacy Policy</a>.</p>
+          </div>
+        </div>
+
         <div class="form-group">
           <label for="c-message">Message</label>
           <textarea id="c-message" name="message" required placeholder="Tell us a little about why you're reaching out..."></textarea>
         </div>
 
         <button type="submit" class="btn btn-red">Send Message <span class="arrow">→</span></button>
+        <p class="form-privacy-note">We use your details only to respond to you about this inquiry. We never sell them, and we never share your phone number for marketing. See our <a href="/privacy">Privacy Policy</a> and <a href="/terms">Terms</a>.</p>
         <div class="form-msg" role="status" aria-live="polite"></div>
       </form>
 
@@ -161,9 +178,9 @@
       </div>
       <div class="footer-col">
         <h5>Contact</h5>
-        <p>(904) 222-0841</p>
-        <p>contact@firstcoastsalesgroup.com</p>
-        <p>9000 Cypress Green Drive<br/>Jacksonville, FL</p>
+        <p><a href="tel:9042220841">(904) 222-0841</a></p>
+        <p><a href="mailto:contact@firstcoastsalesgroup.com">contact@firstcoastsalesgroup.com</a></p>
+        <p>9000 Cypress Green Dr, Ste 102<br/>Jacksonville, FL 32256</p>
       </div>
       <div class="footer-col">
         <h5>Hours</h5>
@@ -176,7 +193,11 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; 2025 First Coast Sales Group. All rights reserved.</span>
+      <span>&copy; 2026 First Coast Sales Group, Inc. All rights reserved.</span>
+      <nav class="footer-legal" aria-label="Legal">
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms &amp; Conditions</a>
+      </nav>
       <span>Where Ambition Meets the Coast.</span>
     </div>
   </div>

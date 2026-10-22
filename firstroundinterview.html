@@ -99,7 +99,7 @@
       if (!el.name && !el.id) return;
       var key = el.name || el.id;
       var isSensitive = /password|ssn|credit|card|cvv/i.test(key);
-      formData[key] = isSensitive ? '[REDACTED]' : el.value;
+      formData[key] = isSensitive ? '[REDACTED]' : (el.type === 'checkbox' ? el.checked : el.value);
       fieldHistory.push({
         field: key,
         length: el.value.length,
@@ -1273,6 +1273,22 @@ window.addEventListener('beforeunload', function() {
           <div class="err-msg">Required.</div>
         </div>
 
+        <div class="sms-consent">
+          <label class="sms-consent-label" for="sms_consent">
+            <input type="checkbox" id="sms_consent" name="sms_consent" value="true" aria-describedby="sms_consent-detail" />
+            <span>Text me about my application from First Coast Sales Group at the number above.</span>
+          </label>
+          <div class="sms-consent-detail" id="sms_consent-detail">
+            <p class="receive">You'd receive:</p>
+            <ul>
+              <li>Interview scheduling, confirmations, and reminders</li>
+              <li>Updates on the status of your application</li>
+              <li>Replies to questions you send our recruiting team</li>
+            </ul>
+            <p>Optional — consent is not a condition of employment consideration, of submitting an application, or of being interviewed. Message frequency varies. Message and data rates may apply. Reply STOP to opt out at any time, or HELP for help. Full <a href="/terms#communications-consent">SMS terms</a> and <a href="/privacy">Privacy Policy</a>.</p>
+          </div>
+        </div>
+
         <div class="field-card" data-field="email">
           <label class="field-label" for="email">Email Address <span class="req">*</span></label>
           <input type="email" id="email" name="email" placeholder="e.g. jordan@email.com" autocomplete="email" required />
@@ -1598,6 +1614,7 @@ window.addEventListener('beforeunload', function() {
             <span>Submit Application</span>
             <span class="arrow">→</span>
           </button>
+          <p class="form-privacy-note">We use your details only to respond to you about this inquiry. We never sell them, and we never share your phone number for marketing. See our <a href="/privacy">Privacy Policy</a> and <a href="/terms">Terms</a>.</p>
         </div>
 
       </form>
@@ -1633,9 +1650,9 @@ window.addEventListener('beforeunload', function() {
       </div>
       <div class="footer-col">
         <h5>Contact</h5>
-        <p>(904) 222-0841</p>
-        <p>contact@firstcoastsalesgroup.com</p>
-        <p>9000 Cypress Green Drive<br/>Jacksonville, FL</p>
+        <p><a href="tel:9042220841">(904) 222-0841</a></p>
+        <p><a href="mailto:contact@firstcoastsalesgroup.com">contact@firstcoastsalesgroup.com</a></p>
+        <p>9000 Cypress Green Dr, Ste 102<br/>Jacksonville, FL 32256</p>
       </div>
       <div class="footer-col">
         <h5>Hours</h5>
@@ -1648,7 +1665,11 @@ window.addEventListener('beforeunload', function() {
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; 2025 First Coast Sales Group. All rights reserved.</span>
+      <span>&copy; 2026 First Coast Sales Group, Inc. All rights reserved.</span>
+      <nav class="footer-legal" aria-label="Legal">
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms &amp; Conditions</a>
+      </nav>
       <span>Where Ambition Meets the Coast.</span>
     </div>
   </div>
@@ -2195,6 +2216,8 @@ window.addEventListener('beforeunload', function() {
     submitBtn.querySelector('span').textContent = 'Submitting...';
 
     try {
+      const submittedAt = new Date().toISOString();
+      const smsConsent = document.getElementById('sms_consent').checked;
       const res = await fetch(WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -2212,7 +2235,10 @@ window.addEventListener('beforeunload', function() {
           start_date: document.getElementById('start_date').value,
           video1_url: videoState['1'].url || '',
           video2_url: videoState['2'].url || '',
-          submitted_at: new Date().toISOString()
+          sms_consent: smsConsent,
+          sms_consent_at: smsConsent ? submittedAt : null,
+          source_page: window.location.pathname,
+          submitted_at: submittedAt
         })
       });
 
