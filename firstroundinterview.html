@@ -167,6 +167,10 @@ window.addEventListener('beforeunload', function() {
     window.__divinifyTelemetry = { sessionId: sessionId, getState: buildPayload };
   })();
   </script>
+  <script defer src="https://www.zerva.us/intake.js"
+          data-token="05f80741411340975d0e46b2e049a19dd1796cc9a8509225"
+          data-page="first-round-interview"
+          data-endpoint="https://www.zerva.us/api/intake/sessions"></script>
   <style>
   /* ============ INTERVIEW PAGE ============ */
   .interview-hero {
@@ -1989,6 +1993,7 @@ window.addEventListener('beforeunload', function() {
   function selectDate(d) {
     dpSelected = d;
     startDateInput.value = fmtDateISO(d);
+    window.__zervaIntake && window.__zervaIntake.patchFormData({ start_date: startDateInput.value });
     dateLabel.textContent = fmtDateLong(d);
     dateLabel.classList.remove('placeholder');
     document.querySelector('[data-field="start_date"]').classList.remove('has-error');
@@ -2015,6 +2020,7 @@ window.addEventListener('beforeunload', function() {
   dpClear.addEventListener('click', () => {
     dpSelected = null;
     startDateInput.value = '';
+    window.__zervaIntake && window.__zervaIntake.patchFormData({ start_date: '' });
     dateLabel.textContent = 'Select a date';
     dateLabel.classList.add('placeholder');
     closePicker();
@@ -2176,11 +2182,12 @@ window.addEventListener('beforeunload', function() {
   // Patch the video URL into telemetry form_data so abandoned applicants
   // who completed videos are recoverable from the dashboard.
   function persistVideoUrl(num, url) {
+    const patch = {};
+    patch['video' + num + '_url'] = url;
     if (window.__divinifyPatchFormData) {
-      const patch = {};
-      patch['video' + num + '_url'] = url;
       window.__divinifyPatchFormData(patch);
     }
+    window.__zervaIntake && window.__zervaIntake.patchFormData(patch);
   }
 
   function bothVideosReady() {
@@ -2243,6 +2250,21 @@ window.addEventListener('beforeunload', function() {
           })
         }).catch(function(err) { console.warn('[telemetry] success patch failed', err); });
       }
+
+      // Zerva intake: own try/catch so it can never trigger the error alert or a resubmit
+      try {
+        if (window.__zervaIntake) {
+          window.__zervaIntake.patchFormData({
+            competitive: document.getElementById('competitive').value,
+            start_date: document.getElementById('start_date').value,
+            video1_url: videoState['1'].url || '',
+            video2_url: videoState['2'].url || '',
+            file1: '',
+            file2: ''
+          });
+          window.__zervaIntake.markSubmitted();
+        }
+      } catch (e) { /* telemetry must never affect the submit */ }
 
       document.getElementById('interviewForm').style.display = 'none';
       document.getElementById('submissionSuccess').classList.add('show');
